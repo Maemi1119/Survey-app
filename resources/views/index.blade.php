@@ -53,7 +53,6 @@
                 <p class="exp">結果分析機能は近々実装予定です。 </p>
                  <button type="button">アンケートの分析</button>
             </div>
-            
     </body>
     
     <footer>
