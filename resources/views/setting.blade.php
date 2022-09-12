@@ -24,11 +24,11 @@
             
             <div class="name">
                 <h2>アンケート名</h2>
-                <input type="text" name="post[name]" placeholder="食べ物についてのアンケート"/><br>
+                <input id="name" type="text" name="post[name]" placeholder="食べ物についてのアンケート"/><br>
             </div>
         
             <div class="overview">
-                <h2>アンケート名</h2>
+                <h2>アンケートの説明</h2>
                 <textarea name="post[overview]" placeholder="このアンケートの目的は〇〇です。"></textarea><br>
             </div>
         
@@ -44,9 +44,10 @@
         
             <div class="kind">
                 <h2>アンケートの種類</h2>
-                <input type="radio" name="post[settings]" value="1" id="kind-0" onclick="changeDisplay()"><label for="kind-0">パブリック</label><br>
+                <input type="radio" name="post[settings]" value="1" id="kind-0" onclick="returnDisplay()"><label for="kind-0">パブリック</label><br>
                 <input type="radio" name="post[settings]" value="2" id="kind-1" onclick="changeDisplay()"><label for="kind-1">プライベート</label><br>
                 <input id="password" type="text" name="post[password]" /><br>
+                <button type="button" id="btn" onclick="changeDisplay()">+</button>
             </div>
             
             <div class="login">

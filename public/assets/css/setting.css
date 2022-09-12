@@ -34,6 +34,11 @@ body{
     margin-bottom: 50px;
 }
 
+textarea{
+    width: 300px;
+    height: 100px;
+}
+
 .overview{
     display: block;
     margin-bottom: 50px;
@@ -54,7 +59,11 @@ body{
     margin-bottom: 50px;
 }
 
-
+#password , #btn{
+    display: none;
+    position: relative;
+    left:25px;
+}
 
 .login{
     display: block;
