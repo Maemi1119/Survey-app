@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('question_id')->unsigned();
+            $table->text('image');
+            $table->datetime('create_at');
+            $table->datetime('updated_at');
+            $table->datetime('deleted_at');
         });
     }
 
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('images');
     }
 };
