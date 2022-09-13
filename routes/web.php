@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,13 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', [PostController::class,'index']);
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

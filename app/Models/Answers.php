@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Answers extends Model
+{
+    use HasFactory;
+    
+    public function users(){
+    return $this->belongsToMany('App\Users');
+    }
+    
+    public function Question(){
+    return $this->hasOne('App/Questions');
+    }
+}
