@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('questionaires', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('overview');
+            $table->string('overview')->nullable()->derault(NULL);
             $table->string('category')->nullable();
             $table->boolean('show-question-coount');
             $table->boolean('is_logined');
             $table->integer('user_id')->unsigned();
             $table->datetime('create_at');
             $table->datetime('updated_at');
-            $table->datetime('deleted_at');
+            $table->datetime('deleted_at')->nullable()->derault(NULL);
         });
     }
 

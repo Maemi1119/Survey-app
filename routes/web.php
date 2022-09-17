@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuestionairesController;
 use Inertia\Inertia;
 
 /*
@@ -16,7 +17,10 @@ use Inertia\Inertia;
 */
 
 
-Route::get('/', function () {
+Route::get('/', [QuestionairesController::class,'lists']);
+
+
+/* Route::get('/', function () {
     return view('welcome');
 });
 
@@ -24,4 +28,4 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__.'/auth.php'; */
