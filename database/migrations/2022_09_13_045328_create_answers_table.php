@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('question_id')->unsigned();
+            $table->foreignId('question_id')->constrained('questions');
             $table->string('answer');
-            $table->string('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->datetime('create_at');
             $table->datetime('updated_at');
             $table->datetime('deleted_at');

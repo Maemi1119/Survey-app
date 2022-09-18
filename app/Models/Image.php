@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Settings extends Model
+class Image extends Model
 {
     use HasFactory;
     
-    public function passwards()   
-    {
-    return $this->hasMany('App\Passwards');  
+    public function question(){
+    return $this->belongsTo(Question::class);
     }
 }

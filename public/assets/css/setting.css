@@ -54,7 +54,10 @@ body{
     margin-bottom: 50px;
 }
 
-
+#password,#btn{
+    display: none;
+    margin-left: 25px;
+}
 
 .login{
     display: block;

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('passwards', function (Blueprint $table) {
             $table->id();
-            $table->integer('setting_id')->unsigned();
+            $table->foreignId('setting_id')->constrained('settings');
             $table->string('password');
             $table->datetime('create_at');
             $table->datetime('updated_at');

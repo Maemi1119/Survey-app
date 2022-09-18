@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Methods extends Model
+class LimitedDescription extends Model
 {
     use HasFactory;
     
     public function question(){
-    return $this->belongsTo('App/Questions');
+    return $this->belongsTo(Questions::class);
     }
 }

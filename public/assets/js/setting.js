@@ -1,10 +1,18 @@
 function changeDisplay(){
-    if (document.setting["settings"][1].checked){
-        document.setting["post[password]"] . disabled = false;
-        document.getElementById('password') . style . display = "inline";
-    }else{
-        document.setting["post[password]"] . desabled = true;
-        document.getElementById('password') . style . display = "none";
-    }
+    document.getElementById('password') . style . display = "inline";
+    document.getElementById('btn') . style . display = "inline";
 }
+
+function returnDisplay(){
+    document.getElementById('password') . style . display = "none";
+    document.getElementById('btn') . style . display = "none";
+}
+
+
+const show = document.getElementById("kind-1");
+show.onclick = changeDisplay;
+
+const hide =document.getElementById("kind-0");
+hide.onckick = returnDisplay;
+
 window.onload = changeDisplay;
