@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Passwards extends Model
+class Setting extends Model
 {
     use HasFactory;
     
-    public function setting()
+    public function passwards()   
     {
-    return $this->belongsTo('App\Settings');
+    return $this->hasMany(Passward::class);  
     }
 }

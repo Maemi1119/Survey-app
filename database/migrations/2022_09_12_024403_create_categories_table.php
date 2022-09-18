@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('answers_users_', function (Blueprint $table) {
-            $table->integer('answers_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->primary(['answers_id', 'user_id']);
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('overview')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers_users_');
+        Schema::dropIfExists('categories');
     }
 };

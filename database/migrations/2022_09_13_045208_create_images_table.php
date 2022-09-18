@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->integer('question_id')->unsigned();
+            $table->foreignId('question_id')->constrained('questions');
             $table->text('image');
             $table->datetime('create_at');
             $table->datetime('updated_at');

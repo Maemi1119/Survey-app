@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('questionaireusers', function (Blueprint $table) {
             $table->id();
-            $table->integer('questionaires_id');
+            $table->foreignId('questionaire_id')->constrained('questionaires');
             $table->integer('type');
-            $table->integer('user_id');
+            $table->foreignId('user_id')->constrained('users');
         });
     }
 

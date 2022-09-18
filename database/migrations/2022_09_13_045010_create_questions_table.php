@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->integer('questionaire_id')->unsigned();
+            $table->foreignId('questionaire_id')->constrained('questionaires');
             $table->string('question');
             $table->integer('method_id')->unsigned();
             $table->integer('max_value')->nullable();

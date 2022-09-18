@@ -22,54 +22,61 @@
         <form name="setting" action="/setting" method="POST">
             @csrf
             
-            <dev class="name">
+            <div class="name">
                 <h2>アンケート名</h2>
                 <input type="text" name="post[name]" placeholder="食べ物についてのアンケート"/><br>
-            </dev>
+            </div>
         
-            <dev class="overview">
-                <h2>アンケート名</h2>
+            <div class="overview">
+                <h2>アンケートの説明</h2>
                 <textarea name="post[overview]" placeholder="このアンケートの目的は〇〇です。"></textarea><br>
-            </dev>
+            </div>
         
-            <dev class="category">
+            <div class="category">
                 <h2>アンケートのカテゴリ</h2>
-            </dev>
+                <select name="categories[category]">
+                    <option value="">設定しない</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
         
-            <dev class="show-question-count">
+            <div class="show-question-count">
                 <h2>設問数の表示</h2>
                 <input type="radio" name="post[show-question-count]" value="1" id="show-0"><label for="show-0">表示する</label><br>
                 <input type="radio" name="post[show-question-count]" value="0" id="show-1"><label for="show-1">表示しない</label><br>
-            </dev>
+            </div>
         
-            <dev class="kind">
+            <div class="kind">
                 <h2>アンケートの種類</h2>
-                <input type="radio" name="post[setting]" value="1" id="kind-0" onclick="changeDisplay()"><label for="kind-0">パブリック</label><br>
-                <input type="radio" name="post[setting]" value="2" id="kind-1" onclick="changeDisplay()"><label for="kind-1">プライベート</label><br>
-                <input id="password" type="text" name="post[password]" /><br>
-            </dev>
+                <input type="radio" name="settings[setting]" value="1" id="kind-0" onclick="returnDisplay()"><label for="kind-0">パブリック</label><br>
+                <input type="radio" name="settings[setting]" value="2" id="kind-1" onclick="changeDisplay()"><label for="kind-1">プライベート</label><br>
+                <input id="password" type="text" name="passwords[password]" /><br>
+                <button type="button" id=btn>+</button>
+            </div>
             
-            <dev class="is_logined">
+            <div class="is_logined">
                 <h2>アプリへのログイン</h2>
                 <input type="radio" name="post[is_logined]" value="1" id="login-0"><label for="login-0">必要</label><br>
                 <input type="radio" name="post[is_logined]" value="0" id="login-1"><label for="login-1">不要</label><br>
-            </dev>
+            </div>
             
-            <dev class="user1">
+            <div class="user1">
                 <h2>回答を閲覧できるユーザー</h2>
-                <input type="checkbox" name="post[setting]" value="3" id="user1-0"><label for="user1-0">投稿者(あなた)</label><br>
-                <input type="checkbox" name="post[setting]" value="4" id="user1-1"><label for="user1-1">すべてのユーザー</label><br>
-                <input type="checkbox" name="post[setting]" value="5" id="user1-2"><label for="user1-2">アプリにログインしたすべてのユーザー</label><br>
-                <input id="brows" type="checkbox" name="post[setting]" value="6"><label for="brows">閲覧用パスワードを入力したすべてのユーザー</label><br>
-            </dev>
+                <input type="checkbox" name="settings[setting][]" value="3" id="user1-0"><label for="user1-0">投稿者(あなた)</label><br>
+                <input type="checkbox" name="settings[setting][]" value="4" id="user1-1"><label for="user1-1">すべてのユーザー</label><br>
+                <input type="checkbox" name="post[setting][]" value="5" id="user1-2"><label for="user1-2">アプリにログインしたすべてのユーザー</label><br>
+                <input id="brows" type="checkbox" name="post[setting][]" value="6"><label for="brows">閲覧用パスワードを入力したすべてのユーザー</label><br>
+            </div>
             
-            <dev class="user2">
+            <div class="user2">
                 <h2>回答を分析できるユーザー</h2>
-                <input type="checkbox" name="post[setting]" value="7" id="user2-0"><label for="user2-0">投稿者(あなた)</label><br>
-                <input type="checkbox" name="post[setting]" value="8" id="user2-1"><label for="user2-1">回答を閲覧したすべてのユーザー</label><br>
-                <input type="checkbox" name="post[setting]" value="9" id="user2-2"><label for="user2-2">閲覧用パスワードを入力したすべてのユーザー</label><br>
-                <input id="analysis" type="checkbox" name="post[setting]" value="10"><label for="analysis">分析用パスワードを入力したすべてのユーザー</label><br>
-            </dev>
+                <input type="checkbox" name="settings[setting][]" value="7" id="user2-0"><label for="user2-0">投稿者(あなた)</label><br>
+                <input type="checkbox" name="settings[setting][]" value="8" id="user2-1"><label for="user2-1">回答を閲覧したすべてのユーザー</label><br>
+                <input type="checkbox" name="settings[setting][]" value="9" id="user2-2"><label for="user2-2">閲覧用パスワードを入力したすべてのユーザー</label><br>
+                <input id="analysis" type="checkbox" name="post[setting][]" value="10"><label for="analysis">分析用パスワードを入力したすべてのユーザー</label><br>
+            </div>
             
             <input type="submit" value="質問を作成"/>
         </form>

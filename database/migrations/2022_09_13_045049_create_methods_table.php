@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('methods', function (Blueprint $table) {
             $table->id();
-            $table->integer('method');
+            $table->string('method');
         });
     }
 

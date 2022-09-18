@@ -17,7 +17,11 @@ use Inertia\Inertia;
 */
 
 
-Route::get('/', [QuestionairesController::class,'lists']);
+Route::get('/', [QuestionaireController::class,'setting']);
+Route::post('/setting', [QuestionaireController::class,'set']);
+
+/*Route::post('/setting', [PasswordController::class,'set']);
+Route::post('/setting', [CategoryController::class,'set']);*/
 
 
 /* Route::get('/', function () {
