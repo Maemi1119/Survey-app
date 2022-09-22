@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionairesController;
+use App\Http\Controllers\QuestionaireController;
 use Inertia\Inertia;
 
 /*
@@ -16,6 +16,10 @@ use Inertia\Inertia;
 |
 */
 
+
+/*Route::get('/', function () {
+    return view('create');
+}); */
 
 Route::get('/', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
