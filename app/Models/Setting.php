@@ -9,8 +9,12 @@ class Setting extends Model
 {
     use HasFactory;
     
-    public function passwards()   
+    public function passwords()   
     {
-    return $this->hasMany(Passward::class);  
+    return $this->hasMany(Password::class);  
+    }
+    
+    public function questionaires()   {
+    return $this->belongsToMany(Questionaire::class);  
     }
 }

@@ -25,11 +25,17 @@ class Questionaire extends Model
     return $this->belongsTo(Category::class);
     }
     
+    public function settings(){
+    return $this->belongsToMany(Setting::class);  
+    }
+    
     protected $fillable = [
+    'user_id',
     'name',
     'overview',
     "category_id",
     'show-question-count',
     'is_logined',
     ];
+
 }

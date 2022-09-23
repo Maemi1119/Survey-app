@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('overview')->nullable()->derault(NULL);
-            $table->foreignId('category_id')->constrained('categories')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->boolean('show-question-count');
             $table->boolean('is_logined');
             $table->foreignId('user_id')->constrained('users');
-            $table->datetime('create_at');
+            $table->datetime('created_at');
             $table->datetime('updated_at');
             $table->datetime('deleted_at')->nullable()->derault(NULL);
         });
