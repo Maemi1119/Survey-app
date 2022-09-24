@@ -27,7 +27,6 @@ Route::post('/setting', [QuestionaireController::class,'set']);
 /*Route::post('/setting', [PasswordController::class,'set']);
 Route::post('/setting', [CategoryController::class,'set']);*/
 
-
 /* Route::get('/', function () {
     return view('welcome');
 });
