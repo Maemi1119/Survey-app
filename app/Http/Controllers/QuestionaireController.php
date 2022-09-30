@@ -11,8 +11,7 @@ use DateTime;
 class QuestionaireController extends Controller
 {
     //
-    public function lists(Questionaire $lists)
-    {
+    public function lists(Questionaire $lists){
         return view('list')->with(['lists' => $lists->get()]);  
     }
     
@@ -21,14 +20,13 @@ class QuestionaireController extends Controller
         return view('setting')->with(['categories' => $category->get()]);;
     }
     
-    public function set(Request $request)
-    {
+    public function set(Request $request){
        $setting = Questionaire::create([
            'user_id'=>1,
            'name'=>$request['post']['name'],
            'overview'=>$request['post']['overview'],
            'category_id'=>NULL,
-           'show-question-count'=>$request['post']['show-question-count'],
+           'show_question_count'=>$request['post']['show_question_count'],
            'is_logined'=>$request['post']['is_logined'],
            ]);
            
@@ -36,6 +34,18 @@ class QuestionaireController extends Controller
                $setting->settings()->attach($value);
            }
            
-        return redirect('/settings/' . $setting->id);
+        return redirect('/createform');
+    }
+    
+    public function check(Questionaire $setting, Category $category){
+        return view('confirmation')->with(['post' => $setting],['settings' => $setting],['categories' => $category->get()]);;
+    }
+    
+    public function update(PostRequest $request, Questionaire $post){
+        $input_post = $request['post'];
+        $input_post = $request['settings'];
+        $post->fill($input_post)->save();
+
+        return redirect('/posts/' . $post->id);
     }
 }

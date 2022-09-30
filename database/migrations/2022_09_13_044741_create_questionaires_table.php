@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('overview')->nullable()->derault(NULL);
             $table->foreignId('category_id')->nullable()->constrained('categories');
-            $table->boolean('show-question-count');
+            $table->boolean('show_question_count');
             $table->boolean('is_logined');
             $table->foreignId('user_id')->constrained('users');
             $table->datetime('created_at');

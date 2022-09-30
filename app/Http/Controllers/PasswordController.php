@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 class PasswordController extends Controller
 {
     //
-    public function set(Request $request, Password $settings){
-        $input = $request['passwards'];
-        $settings->fill($input)->save();
+    public function set(Request $request){
+        $passwords = Password::create([
+           'password'=>$request['passwords']['password'],
+           'setting_id'=>1,
+        ]);
+        
+        
     }
 }

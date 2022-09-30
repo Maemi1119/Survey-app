@@ -28,4 +28,20 @@ class Question extends Model
     public function limitedDescriptions(){
     return $this->hasMany(LimitedDescription::class);
     }
+    
+    protected $fillable = [
+        'question',
+        'max_value',
+        'min_value',
+        'bar',
+        'bar_left',
+        'bar_right',
+        'data',
+        'max_letter',
+        'min_letter',
+        'show',
+        'required',
+        'question_id',
+        'branch',
+    ];
 }

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('max_value')->nullable();
             $table->integer('min_value')->nullable();
             $table->string('bar')->nullable();
+            $table->string('bar_left')->nullable();
+            $table->string('bar_right')->nullable();
             $table->text('data')->nullable();
             $table->integer('max_letter')->nullable();
             $table->integer('min_letter')->nullable();

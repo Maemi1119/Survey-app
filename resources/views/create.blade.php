@@ -15,7 +15,6 @@
             <li><a href="説明書のリンク" target="_blank">各機能のご利用方法　</a></li>
         </ul>
         <h1>　SurveyApp</h1>
-            
     </header>
     
     <body>
@@ -29,7 +28,7 @@
        <form name="create" action"/create" method="POST" enctype="multipart/form-data">
             <div class="question">
                 <p>質問</p>
-                <input type="text" name="questions[name]" placeholder="好きな食べ物は何ですか？"/><br>
+                <input type="text" name="questions[question]" placeholder="好きな食べ物は何ですか？"/><br>
             </div>
             
             <div class="method">
@@ -43,8 +42,8 @@
             
             <div id="choice" class="choice">
                 <p>選択肢を作成してください。</p>
-                <input type="text" name="questions[]" placeholder="りんご"/><br>
-                <input type="text" name="questions[]" placeholder="バナナ"/><br>
+                <input type="text" name="choices[choice]" placeholder="りんご"/><br>
+                <input type="text" name="choices[choice]" placeholder="バナナ"/><br>
                 <button type="button" id="choice_btn">+</button>
             </div>
 
@@ -63,9 +62,9 @@
                 <p>最大値</p>
                 <input type="number" name="questions[max_value]" placeholder="100"/><br>
                 <p>左</p>
-                <input type="text" name="questions[]" placeholder="低い、嫌い"/><br>
+                <input type="text" name="questions[bar_left]" placeholder="低い、嫌い"/><br>
                 <p>右</p>
-                <input type="text" name="questions[]" placeholder="高い、好き"/><br>
+                <input type="text" name="questions[bar_right]" placeholder="高い、好き"/><br>
             </div>
                 
             <div id="data" class="data">
@@ -83,7 +82,7 @@
                     <option value"7">7</option>
                     <option value"8">8</option>
                     <option value"9">9</option>
-                    <option value"10"10></option>
+                    <option value"10">10</option>
                 </select>
             </div>
             
@@ -130,8 +129,8 @@
             
             <div id="choice2" class="choice">
                  <p>選択肢を作成してください。</p>
-                <input type="text" name="questions[]" placeholder="りんご"/><br>
-                <input type="text" name="questions[]" placeholder="バナナ"/><br>
+                <input type="text" name="choices[choice]" placeholder="りんご"/><br>
+                <input type="text" name="choices[choice]" placeholder="バナナ"/><br>
                 <button type="button" id="choice_btn">+</button>
             </div>
             
@@ -150,9 +149,9 @@
                 <p>最大値</p>
                 <input type="number" name="questions[max_value]" placeholder="100"/><br>
                 <p>左</p>
-                <input type="text" name="questions[]" placeholder="低い、嫌い"/><br>
+                <input type="text" name="questions[bar_left]" placeholder="低い、嫌い"/><br>
                 <p>右</p>
-                <input type="text" name="questions[]" placeholder="高い、好き"/><br>
+                <input type="text" name="questions[bar_right]" placeholder="高い、好き"/><br>
             </div>
             
             <div id="data2" class="data">
@@ -170,7 +169,7 @@
                     <option value"7">7</option>
                     <option value"8">8</option>
                     <option value"9">9</option>
-                    <option value"10"10></option>
+                    <option value"10">10</option>
                 </select>
             </div>
             

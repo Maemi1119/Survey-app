@@ -15,6 +15,7 @@ class Password extends Model
     
     protected $fillable = [
     'password',
+    'setting_id',
     ];
     
 }
