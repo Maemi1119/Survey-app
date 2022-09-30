@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('passwards', function (Blueprint $table) {
+        Schema::create('passwords', function (Blueprint $table) {
             $table->id();
             $table->foreignId('setting_id')->constrained('settings');
             $table->string('password');
-            $table->datetime('create_at');
+            $table->datetime('created_at');
             $table->datetime('updated_at');
             $table->datetime('deleted_at')->nullable();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('passwards');
+        Schema::dropIfExists('passwords');
     }
 };

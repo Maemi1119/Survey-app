@@ -34,7 +34,7 @@ class Questionaire extends Model
     'name',
     'overview',
     "category_id",
-    'show-question-count',
+    'show_question_count',
     'is_logined',
     ];
 
