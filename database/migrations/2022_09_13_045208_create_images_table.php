@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('question_id')->constrained('questions');
             $table->text('image');
-            $table->datetime('create_at');
-            $table->datetime('updated_at');
-            $table->datetime('deleted_at');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

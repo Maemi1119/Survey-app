@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('provider_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->datetime('deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 

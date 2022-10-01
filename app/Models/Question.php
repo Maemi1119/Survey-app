@@ -42,6 +42,8 @@ class Question extends Model
         'show',
         'required',
         'question_id',
+        'questionaire_id',
+        'method_id',
         'branch',
     ];
 }

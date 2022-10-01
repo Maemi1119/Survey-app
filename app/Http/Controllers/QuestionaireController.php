@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Questionaire;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use DateTime;
+use Datetime;
 
 
 class QuestionaireController extends Controller
@@ -34,11 +34,11 @@ class QuestionaireController extends Controller
                $setting->settings()->attach($value);
            }
            
-        return redirect('/createform');
+        return redirect('/createform/'. $setting->id);
     }
     
-    public function check(Questionaire $setting, Category $category){
-        return view('confirmation')->with(['post' => $setting],['settings' => $setting],['categories' => $category->get()]);;
+    public function check(Questionaire $questionaire, Category $category){
+        return view('confirmation')->with(['setting' => $questionaire, 'categories' => $category->get()]);;
     }
     
     public function update(PostRequest $request, Questionaire $post){

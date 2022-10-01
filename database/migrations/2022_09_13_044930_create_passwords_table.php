@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('setting_id')->constrained('settings');
             $table->string('password');
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
-            $table->datetime('deleted_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

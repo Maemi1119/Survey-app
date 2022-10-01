@@ -25,15 +25,13 @@ use Inertia\Inertia;
 }); */
 
 Route::get('/', [QuestionaireController::class,'setting']);
-//Route::post('/setting', [CategoryController::class,'set']);
-Route::post('/setting', [PasswordController::class,'set']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 
-Route::get('/createform', [QuestionController::class, 'question']);
-Route::post('/create', [QuestionController::class,'create']);
+Route::get('/createform/{questionaire}', [QuestionController::class, 'question']);
+Route::post('/create/{questionaire}', [QuestionController::class,'create']);
 
-Route::get('/setting/{id}', [QuestionaireController::class, 'check']);
-Route::put('/setting/{id}', [QuestionaireController::class, 'update']);
+Route::get('/setting/{questionaire}', [QuestionaireController::class, 'check']);
+Route::put('/setting/{questionaire}', [QuestionaireController::class, 'update']);
 /* Route::get('/', function () {
     return view('welcome');
 });

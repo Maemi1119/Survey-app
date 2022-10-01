@@ -36,6 +36,7 @@ class Questionaire extends Model
     "category_id",
     'show_question_count',
     'is_logined',
+    'provision'
     ];
 
 }
