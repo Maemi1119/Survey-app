@@ -30,9 +30,8 @@ return new class extends Migration
             $table->boolean('required')->nullable();
             $table->integer('question_id')->nullable();
             $table->string('branch')->nullable();
-            $table->datetime('create_at');
-            $table->datetime('updated_at');
-            $table->datetime('deleted_at');
+            $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 

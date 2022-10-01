@@ -19,9 +19,8 @@
     </header>
     
     <body>
-        <form action="/setting/$id" method="POST">
+        <form action="/setting/{{ $setting->id }}" method="GET">
             @csrf
-            @method('PUT')
             
             <div class="name">
                 <h2>アンケート名</h2>

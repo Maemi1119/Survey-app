@@ -18,9 +18,8 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained('questions');
             $table->string('answer');
             $table->foreignId('user_id')->constrained('users');
-            $table->datetime('create_at');
-            $table->datetime('updated_at');
-            $table->datetime('deleted_at');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

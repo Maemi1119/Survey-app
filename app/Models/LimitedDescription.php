@@ -12,4 +12,9 @@ class LimitedDescription extends Model
     public function question(){
     return $this->belongsTo(Questions::class);
     }
+    
+    protected $fillable = [
+        'question_id',
+        'limited',
+    ];
 }
