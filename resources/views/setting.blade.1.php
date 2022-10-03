@@ -19,17 +19,17 @@
     </header>
     
     <body>
-        <form action="/setting/{{ $questionaires->id }}" method="GET">
+        <form name="setting" action="/setting" method="POST">
             @csrf
             
             <div class="name">
                 <h2>アンケート名</h2>
-                <p name="post[name]"></p>{{ $questionaires->name }}</p><br>
+                <input type="text" name="post[name]" placeholder="食べ物についてのアンケート"/><br>
             </div>
         
             <div class="overview">
                 <h2>アンケートの説明</h2>
-                <p name="post[overview]">{{ $questionaires->overview }}</p><br>
+                <textarea name="post[overview]" placeholder="このアンケートの目的は〇〇です。"></textarea><br>
             </div>
         
             <div class="category">
@@ -44,43 +44,41 @@
         
             <div class="show_question_count">
                 <h2>設問数の表示</h2>
-                <p name="post[show_question_count]">{{ $questionaires->show_question_count }}</p><br>
+                <input type="radio" name="post[show_question_count]" value="1" id="show-0"><label for="show-0">表示する</label><br>
+                <input type="radio" name="post[show_question_count]" value="2" id="show-1"><label for="show-1">表示しない</label><br>
             </div>
         
             <div class="kind">
                 <h2>アンケートの種類</h2>
-                @foreach($questionaires->settings as $setting)
-                    @if($setting->id >= 1 && $setting->id <= 2)
-                        <p name="post[kind]">{{ $setting->setting }}</p>
-                    @endif
-                @endforeach
-                <p name="passwords[password]">{{ $passwords->password }}</p><br>
+                <input type="radio" name="settings[]" value="1" id="kind-0" onclick="returnDisplay()"><label for="kind-0">パブリック</label><br>
+                <input type="radio" name="settings[]" value="2" id="kind-1" onclick="changeDisplay()"><label for="kind-1">プライベート</label><br>
+                <input id="password" type="text" name="passwords[password]" /><br>
+                <button type="button" id=btn>+</button>
             </div>
             
             <div class="is_logined">
                 <h2>アプリへのログイン</h2>
-                <p name="post[is_logined]">{{ $questionaires->is_logined }}</p><br>
+                <input type="radio" name="post[is_logined]" value="1" id="login-0"><label for="login-0">必要</label><br>
+                <input type="radio" name="post[is_logined]" value="2" id="login-1"><label for="login-1">不要</label><br>
             </div>
             
             <div class="user1">
                 <h2>回答を閲覧できるユーザー</h2>
-                @foreach($questionaires->settings as $setting)
-                    @if($setting->id >= 3 && $setting->id <= 6)
-                        <p name="post[user1]">{{ $setting->setting }}</p>
-                    @endif
-                @endforeach
+                <input type="checkbox" name="settings[]" value="3" id="user1-0"><label for="user1-0">投稿者(あなた)</label><br>
+                <input type="checkbox" name="settings[]" value="4" id="user1-1"><label for="user1-1">すべてのユーザー</label><br>
+                <input type="checkbox" name="settings[]" value="5" id="user1-2"><label for="user1-2">アプリにログインしたすべてのユーザー</label><br>
+                <input id="brows" type="checkbox" name="settings[]" value="6"><label for="brows">閲覧用パスワードを入力したすべてのユーザー</label><br>
             </div>
             
             <div class="user2">
                 <h2>回答を分析できるユーザー</h2>
-                @foreach($questionaires->settings as $setting)
-                    @if($setting->id >= 7 && $setting->id <= 10)
-                        <p name="post[user2]">{{ $setting->setting }}</p>
-                    @endif
-                @endforeach
+                <input type="checkbox" name="settings[]" value="7" id="user2-0"><label for="user2-0">投稿者(あなた)</label><br>
+                <input type="checkbox" name="settings[]" value="8" id="user2-1"><label for="user2-1">回答を閲覧したすべてのユーザー</label><br>
+                <input type="checkbox" name="settings[]" value="9" id="user2-2"><label for="user2-2">閲覧用パスワードを入力したすべてのユーザー</label><br>
+                <input id="analysis" type="checkbox" name="settings[]" value="10"><label for="analysis">分析用パスワードを入力したすべてのユーザー</label><br>
             </div>
             
-            <input type="submit" value="質問のプレビュー"/>
+            <input type="submit" value="質問を作成"/>
         </form>
         
         

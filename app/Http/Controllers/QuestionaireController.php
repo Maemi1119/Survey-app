@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Questionaire;
 use App\Models\Category;
+use App\Models\Setting;
+use App\Models\Password;
 use Illuminate\Http\Request;
 use Datetime;
 
@@ -15,30 +17,37 @@ class QuestionaireController extends Controller
         return view('list')->with(['lists' => $lists->get()]);  
     }
     
-    public function setting(Category $category)
-    {
-        return view('setting')->with(['categories' => $category->get()]);;
+    public function setting(Category $category , Setting $setting){
+        return view('setting')->with(['categories' => $category->get(), 'settings' => $setting->get()]);
     }
     
     public function set(Request $request){
-       $setting = Questionaire::create([
-           'user_id'=>1,
-           'name'=>$request['post']['name'],
-           'overview'=>$request['post']['overview'],
-           'category_id'=>NULL,
-           'show_question_count'=>$request['post']['show_question_count'],
-           'is_logined'=>$request['post']['is_logined'],
-           ]);
-           
+        $setting = Questionaire::create([
+            'user_id'=>1,
+            'name'=>$request['post']['name'],
+            'overview'=>$request['post']['overview'],
+            'category_id'=>NULL,
+            'show_question_count'=>$request['post']['show_question_count'],
+            'is_logined'=>$request['post']['is_logined'],
+        ]);
+        
+        $setting->settings()->attach($request['settings_radio']);
+        
            foreach($request['settings'] as $value){
                $setting->settings()->attach($value);
            }
+        //dd($request['passwords']['password']);
+        $passwords = Password::create([
+           'password'=>$request['passwords']['password'],
+           'setting_id'=>1,
+        ]);
            
         return redirect('/createform/'. $setting->id);
     }
     
-    public function check(Questionaire $questionaire, Category $category){
-        return view('confirmation')->with(['setting' => $questionaire, 'categories' => $category->get()]);;
+    public function check(Questionaire $questionaire, Category $category, Password $password){
+        //dd($questionaire->settings[0]->id);
+        return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
     }
     
     public function update(PostRequest $request, Questionaire $post){

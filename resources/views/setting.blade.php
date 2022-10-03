@@ -50,8 +50,11 @@
         
             <div class="kind">
                 <h2>アンケートの種類</h2>
-                <input type="radio" name="settings[]" value="1" id="kind-0" onclick="returnDisplay()"><label for="kind-0">パブリック</label><br>
-                <input type="radio" name="settings[]" value="2" id="kind-1" onclick="changeDisplay()"><label for="kind-1">プライベート</label><br>
+                @foreach($settings as $setting)
+                    @if($setting->id >= 1 && $setting->id <= 2)
+                        <input type="radio" name="settings_radio" value="{{$setting->id}}" id="setting_{{$setting->id}}" onclick="{{$setting->id=== 1 ? 'returnDisplay()' : 'changeDisplay()'}}"><label for="setting_{{$setting->id}}">{{$setting->setting}}</label><br>
+                    @endif
+                @endforeach
                 <input id="password" type="text" name="passwords[password]" /><br>
                 <button type="button" id=btn>+</button>
             </div>
@@ -62,20 +65,22 @@
                 <input type="radio" name="post[is_logined]" value="2" id="login-1"><label for="login-1">不要</label><br>
             </div>
             
-            <div class="user1">
+           <div class="user1">
                 <h2>回答を閲覧できるユーザー</h2>
-                <input type="checkbox" name="settings[]" value="3" id="user1-0"><label for="user1-0">投稿者(あなた)</label><br>
-                <input type="checkbox" name="settings[]" value="4" id="user1-1"><label for="user1-1">すべてのユーザー</label><br>
-                <input type="checkbox" name="settings[]" value="5" id="user1-2"><label for="user1-2">アプリにログインしたすべてのユーザー</label><br>
-                <input id="brows" type="checkbox" name="settings[]" value="6"><label for="brows">閲覧用パスワードを入力したすべてのユーザー</label><br>
+                @foreach($settings as $setting)
+                    @if($setting->id >= 3 && $setting->id <= 6)
+                        <input type="checkbox" name="settings[{{$setting->id}}]" value="{{$setting->id}}" id="setting_{{$setting->id}}"><label for="setting_{{$setting->id}}">{{$setting->setting}}</label><br>
+                    @endif
+                @endforeach
             </div>
             
             <div class="user2">
                 <h2>回答を分析できるユーザー</h2>
-                <input type="checkbox" name="settings[]" value="7" id="user2-0"><label for="user2-0">投稿者(あなた)</label><br>
-                <input type="checkbox" name="settings[]" value="8" id="user2-1"><label for="user2-1">回答を閲覧したすべてのユーザー</label><br>
-                <input type="checkbox" name="settings[]" value="9" id="user2-2"><label for="user2-2">閲覧用パスワードを入力したすべてのユーザー</label><br>
-                <input id="analysis" type="checkbox" name="settings[]" value="10"><label for="analysis">分析用パスワードを入力したすべてのユーザー</label><br>
+                @foreach($settings as $setting)
+                    @if($setting->id >= 7 && $setting->id <= 10)
+                        <input type="checkbox" name="settings[{{$setting->id}}]" value="{{$setting->id}}" id="setting_{{$setting->id}}"><label for="setting_{{$setting->id}}">{{$setting->setting}}</label><br>
+                    @endif
+                @endforeach
             </div>
             
             <input type="submit" value="質問を作成"/>

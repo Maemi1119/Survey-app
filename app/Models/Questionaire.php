@@ -29,6 +29,10 @@ class Questionaire extends Model
     return $this->belongsToMany(Setting::class);  
     }
     
+    public function choices(){
+    return $this->belongsToMany(Choice::class);  
+    }
+    
     protected $fillable = [
     'user_id',
     'name',

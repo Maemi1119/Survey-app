@@ -17,4 +17,8 @@ class Setting extends Model
     public function questionaires()   {
     return $this->belongsToMany(Questionaire::class);  
     }
+    
+    protected $fillable = [
+        'setting',
+    ];
 }

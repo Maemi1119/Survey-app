@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Password;
 use Illuminate\Http\Request;
+use App\Models\Coice;
 
-class PasswordController extends Controller
+class ChoiceController extends Controller
 {
     //
 }

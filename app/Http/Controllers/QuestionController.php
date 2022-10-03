@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Questionaire;
 use App\Models\Method;
 use App\Models\Question;
+use App\Models\Choice;
 use App\Models\LimitedDescription;
 use Illuminate\Http\Request;
 use Datetime;
@@ -22,11 +23,17 @@ class QuestionController extends Controller
         $question->questionaire_id=$questionaire->id;
         $question->save();
         
+        foreach($request['choices']['choice'] as $choice){
+            Choice::create([
+            'question_id'=>$question->id,
+            'choice'=>$choice,
+            ]);
+        }
         foreach($request['limited_descriptions']['limited'] as $limited){
             LimitedDescription::create([
-                'limited'=>$limited,
-                'question_id'=>$question->id,
-                ]);
+            'limited'=>$limited,
+            'question_id'=>$question->id,
+            ]);
         }
         return redirect('/setting/' . $questionaire->id);
     }
