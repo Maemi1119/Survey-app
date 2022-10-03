@@ -24,6 +24,7 @@ use Inertia\Inertia;
     return view('create');
 }); */
 
+
 Route::get('/', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 

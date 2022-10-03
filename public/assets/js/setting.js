@@ -9,10 +9,10 @@ function returnDisplay(){
 }
 
 
-const show = document.getElementById("kind-1");
+const show = document.getElementById("setting_2");
 show.onclick = changeDisplay;
 
-const hide =document.getElementById("kind-0");
+const hide =document.getElementById("setting_1");
 hide.onckick = returnDisplay;
 
 window.onload = changeDisplay;
