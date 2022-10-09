@@ -38,8 +38,9 @@ class QuestionaireController extends Controller
            }
         //dd($request['passwords']['password']);
         $passwords = Password::create([
-           'password'=>$request['passwords']['password'],
+          // 'password'=>$request['passwords']['password'],
            'setting_id'=>1,
+           'password'=>'password'
         ]);
            
         return redirect('/createform/'. $setting->id);

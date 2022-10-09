@@ -80,6 +80,7 @@
                 @endforeach
             </div>
             
+            <button type="button">設定を変更する</button>
             <input type="submit" value="質問のプレビュー"/>
         </form>
         
