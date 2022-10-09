@@ -9,12 +9,14 @@ use App\Models\Choice;
 use App\Models\LimitedDescription;
 use Illuminate\Http\Request;
 use Datetime;
+use Inertia\Inertia;
 
 class QuestionController extends Controller
 {
     //
     public function question(Questionaire $questionaire , Method $method){
-        return view('create')->with(['questionaire'=>$questionaire, 'methods'=>$method->get()]);
+        return Inertia::render('Create',['questionaire'=>$questionaire, 'methods'=>$method->get()]);
+        //return view('create')->with(['questionaire'=>$questionaire, 'methods'=>$method->get()]);
     }
     
     public function create(Request $request, Question $question , Questionaire $questionaire){
