@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
@@ -26,6 +25,8 @@ export default function Setting({ categories, settings, auth}){
         category_id: '',
         sho_question_count: '',
         is_logined: '',
+        setting:[],
+        password:[],
         provisional: 0,
     });
     
@@ -100,18 +101,19 @@ export default function Setting({ categories, settings, auth}){
             <FormControlLabel value={1} control={<Radio />} label='パブリック' onClick={returnDisplay}/>
             <FormControlLabel value={2} control={<Radio />} label='プライベート' onClick={changeDisplay}/> 
            </RadioGroup>
+           <div id='password'>
+                <TextField label="password" variant="standard"/>
+                {passwords.map((possword,index) => {
+                    return(
+                    <TextField variant="standard"/>
+                    );
+                })}
+                <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+        onClick={() => addPasswords()}>+</Button>
+            </div>
         </div>
         
-        <div id='password'>
-            <TextField label="password" variant="standard"/>
-            {passwords.map((possword,index) => {
-                return(
-                <TextField variant="standard"/>
-                );
-            })}
-            <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-onClick={() => addPasswords()}>+</Button>
-        </div>
+        
         
         <div>
         <Title title='アプリへのログイン'/>
@@ -123,6 +125,7 @@ onClick={() => addPasswords()}>+</Button>
         
         <div>
         <Title title='回答を閲覧できるユーザー'/>
+        {/*省略形*/}
         {settings.map(setting=>
             (
                 <div>
@@ -146,6 +149,8 @@ onClick={() => addPasswords()}>+</Button>
             )}
         )}
         </div>
+        
+        <Button component="button" variant="contained" type="submit">質問の作成</Button>
         </form>
         </>
         );

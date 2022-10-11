@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
@@ -32,7 +31,9 @@ export default function Create({ questionaire, methods, auth}) {
         question: '',
         method: '',
         choice: [],
-        limited: '',
+        limited: [],
+        data:'',
+        setting:'',
         
     });
     
@@ -145,7 +146,7 @@ onClick={() => addChoices()}>+</Button>
           <FormControlLabel control={<Checkbox />} value="4" label="必須" />
         </div>
         
-        <Button component="button" variant="contained" type="submit">プレビュー</Button>
+        <Button component="button" variant="contained" type="submit">設定の確認</Button>
         </form>
         {/*</AuthenticatedLayout>*/}
         </>
