@@ -48,8 +48,8 @@ class QuestionaireController extends Controller
     }
     
     public function check(Questionaire $questionaire, Category $category, Password $password){
-        //dd($questionaire->settings[0]->id);
-        return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
+        return Inertia::render('Confirm',['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->get()]);
+        //return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
     }
     
     public function update(PostRequest $request, Questionaire $post){
