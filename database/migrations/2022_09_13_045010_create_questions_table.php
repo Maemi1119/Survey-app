@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('show')->nullable();
             $table->boolean('required')->nullable();
             $table->integer('question_id')->nullable();
+            $table->integer('image')->nullable();
             $table->string('branch')->nullable();
             $table->timestamps();
             $table->softDeletes(); 

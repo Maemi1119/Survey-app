@@ -18,8 +18,21 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import Questions from '@/Components/Questions';
+import Methods from '@/Components/Methods';
+import Choices from '@/Components/Choices';
+import LimitedDescriptions from '@/Components/LimitedDescriptions';
+import SliderSettings from '@/Components/SliderSettings';
+import Data from '@/Components/Data';
+import QuestionSettings from '@/Components/QuestionSettings';
+import Letter from '@/Components/Letter';
+import Images from '@/Components/Images';
 
-export default function Create({ questionaire, methods, auth}) {
+export default function Create({ questionaires, methods, auth}) {
     
     {/*choice*/}
     const [choices, setChoices] = useState([]);
@@ -34,7 +47,6 @@ export default function Create({ questionaire, methods, auth}) {
         limited: [],
         data:'',
         setting:'',
-        
     });
     
     {/*制限*/}
@@ -45,6 +57,15 @@ export default function Create({ questionaire, methods, auth}) {
     const handleChange = (event) => {
     setNumber(event.target.value);
     };
+    
+    {/*設定*/}
+    const questionSettings = ['字数','表示','画像','必須','分岐'];
+
+    {/*質問の繰り返し*/}
+    const [questions, setQuestions] = useState([]);
+    const addQuestions = () => {
+        setQuestions((prevQuestions) => ([ ...prevQuestions, "" ]));
+      };
 
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
@@ -64,87 +85,66 @@ export default function Create({ questionaire, methods, auth}) {
         >*/}
         <div>
           <Title title='アンケート名'/>
-          <h8>{ questionaire.name }</h8>
+          <h8>{ questionaires.name }</h8>
         </div>
         
         <form onSubmit={submit}>
         
-        <div>
-          <Title title='【質問】'/>
-          <TextField label="質問文" placeholder='好きな食べ物は何ですか？' variant="standard"/>
-        </div>
+            <Questions id={questionaires.id} title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'}/>
+            
+            <Methods id={questionaires.id}/>
+            
+            <Choices id={questionaires.id} placeholder={'りんご'} placeholder2={'バナナ'}/>
+            
+            <LimitedDescriptions id={questionaires.id}/>
+            
+            <SliderSettings id={questionaires.id}/>
+            
+            <Data id={questionaires.id}/>
+            
+            <QuestionSettings id={questionaires.id} number={4} />
+            
+            <letter id={questionaires.id}/>
+            
+            <div className='hidden' id='show'>
+            </div>
+            
+            <Images id={questionaires.id}/>
+            
+            
+        {/*２問め以降*/}
+        {questions.map((question,index) => {
+            return(
+                <div>
+                    <Questions id={index+2} label={'質問文'} placeholder={''}/>
+                
+                    <Methods />
+                    
+                    <Choices id={index+2} placeholder={''} placeholder2={''}/>
+                    
+                    <LimitedDescriptions id={index+2}/>
+                    
+                    <SliderSettings id={index+2}/>
+                    
+                    <Data id={index+2}/>
+                    
+                    <QuestionSettings id={index+2} number={5} />
+                    
+                    <letter id={index+2} />
+                    
+                    <div className='hidden' id='show'>
+                    </div>
+                    
+                    <Images iid={index+2}/>
+                    
+                    <div className='hidden' id='branch'>
+                    </div>
+                </div>
+            );
+        })}
         
-        {/*<div className="method">*/}
-        <div>
-            <FormControl>
-              <Title title='【回答方法】'/>
-              <RadioGroup>
-                {methods.map(method=>{
-                    return (
-                    <FormControlLabel value={method.id} control={<Radio />} label={method.method} />
-                    )
-                })}
-              </RadioGroup>
-            </FormControl>
-        </div>
-        
-        <div id='choice' className="choice">
-          <Title title='選択肢を作成してください'/>
-          <TextField placeholder='りんご' variant="standard"/>
-          <TextField placeholder='バナナ' variant="standard"/>
-             {choices.map((choice,index) => {
-                return(
-                <TextField variant="standard"/>
-                )
-              })}
-          <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-onClick={() => addChoices()}>+</Button>
-        </div>
-    
-        
-        <div id="limitedDescriptions" className="limitedDescriptions">
-            <Title title='入力を許可する文字を選択してください。'/>
-            <FormControl>
-            {limiteds.map((limited,index)=>{
-            return (
-                <FormControlLabel value={index+1} control={<Checkbox />} label={limited} />
-                )
-            })}
-            </FormControl>
-        </div>
-        
-        <div id="slider" className="slider">
-          <TextField label="最小値" placeholder='1' variant="standard"/>
-          <TextField label="最大値" placeholder='100' variant="standard"/>
-          <TextField label="左" placeholder='低い' variant="standard"/>
-          <TextField label="右" placeholder='高い' variant="standard"/>
-        </div>
-        
-        <div id="data" className="data">
-          <Title title='アップロードを許可するファイルの個数を選択してください。'/>
-          <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={number}
-          label="Number"
-          onChange={handleChange}
-        >
-            {Array(10).fill(0).map((val, i) => {
-                return(
-                <MenuItem value={i+1}>{i+1}</MenuItem>
-                )})
-            }
-          </Select>
-          
-        </div>
-        
-        <div className="setting">
-          <Title title='【設定】'/>
-          <FormControlLabel control={<Checkbox />} value="1" label="字数" />
-          <FormControlLabel control={<Checkbox />} value="2" label="表示" />
-          <FormControlLabel control={<Checkbox />} value="3" label="画像" />
-          <FormControlLabel control={<Checkbox />} value="4" label="必須" />
-        </div>
+        <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+onClick={() => addQuestions()}>'質問を追加'</Button>
         
         <Button component="button" variant="contained" type="submit">設定の確認</Button>
         </form>

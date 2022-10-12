@@ -20,6 +20,8 @@ import ShowText from '@/Components/ShowText';
 import Stack from '@mui/material/Stack';
 import Modify from '@/Components/Modify';
 import ClassModify from '@/Components/ClassModify';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Setting({ questionaires, categories, settings, passwords, auth}){
     
@@ -159,8 +161,7 @@ export default function Setting({ questionaires, categories, settings, passwords
         
         <ClassModify
             id='name'
-            title='アンケート名'
-            content={<TextField placeholder='好きな食べ物は何ですか？' variant="standard"/>}
+            content={<Questions id={questionaires.id} title='アンケート名' label={''} value={questionaires.name} placeholder={''}/>}
             OK={changeName,hideModifyName}
             cancel={hideModifyName}
         />
@@ -173,10 +174,9 @@ export default function Setting({ questionaires, categories, settings, passwords
         
         <ClassModify
             id='overview'
-            title='アンケートの説明'
-            content={<TextField placeholder='このアンケートの目的は〇〇です。' variant="outlined"/>}
-            OK={changeOverview,hideModifyOver}
-            cancel={hideModifyOver}
+            content={<Questions id={questionaires.id} title='アンケートの説明' label={'説明文'} value={questionaires.overview} placeholder={''}/>}
+            OK={changeOverview,hideModifyOverview}
+            cancel={hideModifyOverview}
         />
         
         <div>
@@ -187,23 +187,7 @@ export default function Setting({ questionaires, categories, settings, passwords
         
         <ClassModify
             id='category'
-            title='カテゴリー'
-            content={
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={category}
-                  label="Category"
-                  onChange={handleChange}
-                >
-                    <MenuItem value=''>選択しない</MenuItem>
-                    {categories.map(category=>{
-                        return (
-                        <MenuItem value={category}>{category}</MenuItem>
-                        );
-                    })}
-                </Select>
-            }
+            content={<Category />}
             OK={changeCategory,hideModifyCategory}
             cancel={hideModifyCategory}
         />
@@ -222,10 +206,13 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='show_question_count'
             title='設問数の表示'
             content={
-                <RadioGroup>
-                <FormControlLabel value={1} control={<Radio />} label='表示する'/>
-                <FormControlLabel value={2} control={<Radio />} label='表示しない'/>
-                </RadioGroup>
+                <Radio2G 
+                    title='設問数の表示'
+                    label1='表示する'
+                    label2='表示しない'
+                    func1={''}
+                    func2={''}
+                />
             }
             OK={changeShowQuestionCount,hideModifyShowQuestionCount}
             cancel={hideModifyShowQuestionCount}
@@ -257,10 +244,13 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='kind'
             title='アンケートの種類'
             content={
-                <RadioGroup>
-                <FormControlLabel value={1} control={<Radio />} label='パブリック'/>
-                <FormControlLabel value={2} control={<Radio />} label='プライベート'/> 
-                </RadioGroup>
+                <Radio2G 
+                    title='アンケートの種類'
+                    label1='プライベート'
+                    label2='パブリック'
+                    func1={''}
+                    func2={''}
+                />
             }
             OK={changeKind,hideModifyKind}
             cancel={hideModifyKind}
@@ -269,16 +259,21 @@ export default function Setting({ questionaires, categories, settings, passwords
         <div id='password'>
             {passwords.map(password => {
                 return(
+                <Stack direction="row" spacing={0}>
                 <TextField variant="standard" value={password.password}/>
+                <IconButton aria-label="delete"><DeleteIcon /></IconButton>
+                </Stack>
                 );
             })}
             {pass.map((password,index) => {
                 return(
+                <Stack direction="row" spacing={0}>
                 <TextField variant="standard"/>
+                <IconButton aria-label="delete"><DeleteIcon /></IconButton>
+                </Stack>
                 );
             })}
-            <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-    onClick={() => addPass()}>+</Button>
+            <Button variant="contained" onClick={() => addPass()}>+</Button>
             <Stack direction="row" spacing={2}>
             <Button variant="contained" onClick={changePass,returnDisplay}>'決定'</Button>
             <Button variant="outlined" onClick={returnDisplay}>'キャンセル'</Button>
@@ -299,10 +294,13 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='is_logined'
             title='アプリへのログイン'
             content={
-                <RadioGroup>
-                <FormControlLabel value={1} control={<Radio />} label='必要'/>
-                <FormControlLabel value={2} control={<Radio />} label='不要'/>
-                </RadioGroup>
+                <Radio2G 
+                    title='アプリへのログイン'
+                    label1='必要'
+                    label2='不要'
+                    func1={''}
+                    func2={''}
+                />
             }
             OK={changeLogined,hideModifyLogined}
             cancel={hideModifyLogined}
@@ -311,7 +309,7 @@ export default function Setting({ questionaires, categories, settings, passwords
         <div>
         <Title title='回答を閲覧できるユーザー'/>
         {/*省略形*/}
-        {settings.map(setting=>
+        {user1.settings.map(setting=>
             (
                 <div>
                 {(setting.id>=3 && setting.id<=6) && 
@@ -327,15 +325,12 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='user1'
             title='回答を閲覧できるユーザー'
             content={
-                {settings.map(setting=>{
-                    return(
-                        <div>
-                        {(setting.id>=3 && setting.id<=6) && 
-                            <FormControlLabel control={<Checkbox />} value={setting.id} label={setting.setting}/>
-                        }
-                        </div>
-                    )
-                })}
+                <UsersSetting
+                    title='回答を閲覧できるユーザー'
+                    smaller={3}
+                    bigger={6}
+                />
+            }
             OK={changeUser1,hideModifyUser1}
             cancel={hideModifyUser1}
         />
@@ -358,21 +353,17 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='user2'
             title='回答を分析できるユーザー'
             content={
-                {settings.map(setting=>
-                    (
-                        <div>
-                        {(setting.id>=7 && setting.id<=10) && 
-                            <FormControlLabel control={<Checkbox />} value={setting.id} label={setting.setting}/>
-                        }
-                        </div>
-                    )
-                )}
+                <UsersSetting
+                    title='回答を分析できるユーザー'
+                    smaller={7}
+                    bigger={10}
+                />
             }
             OK={changeUser2,hideModifyUser2}
             cancel={hideModifyUser2}
         />
         
-        <Button component="button" variant="contained" type="submit">アンケートのプレビュー</Button>
+        <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">アンケートのプレビュー</Button>
         </form>
         </>
         );
