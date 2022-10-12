@@ -1,0 +1,30 @@
+import React, { useState,useEffect } from 'react';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+export default function List({questionaires,categories,users,auth,errors}){
+    
+    return(
+        <>
+        {questionaires.map(list =>{
+            return(
+                <div className='list'>
+                <Stack direction="row" spacing={3}>
+                    <p>{list.name}</p>
+                    <p>{list.category_id.category}</p>
+                    <p>{list.users_id.name}</p>
+                    <p>{list.created_at}</p>
+                    <p>{list.updated_at}</p>
+                    <Button variant="outlined" href=>'共有'</Button>
+                    <Button variant="contained" href=>'開く'</Button>
+                </Stack>
+                </div>
+            );
+        })}
+        </>
+        );
+}

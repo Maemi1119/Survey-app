@@ -3,14 +3,13 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Title from '@/Components/Title';
 
-export default function ClassModify({id,title,content,OK,cancel}) {
+export default function ClassModify({id,content,OK,cancel}) {
     return(
         <div className='Modify' id={id}>
-            <Title title={title}/>
             {content}
             <Stack direction="row" spacing={2}>
                 <Button variant="contained" onClick={{OK}}>'決定'</Button>
-                <Button variant="outlined" onClick={{cancel}}>'キャンセルする'</Button>
+                <Button variant="outlined" onClick={{cancel}}>'キャンセル'</Button>
             </Stack>
         </div>
     );
