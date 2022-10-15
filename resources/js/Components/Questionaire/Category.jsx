@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function Category() {
+export default function Category({postData,category,handleChange,categories}) {
     return(
         <div>
             <Title title='カテゴリー'/>
@@ -13,7 +13,7 @@ export default function Category() {
               id="demo-simple-select"
               value={category}
               label="Category"
-              onChange={handleChange}
+              onChange={handleChange,{postData}}
             >
                 <MenuItem disabled value=''><em>選択しない</em></MenuItem>
                 {categories.map(category=>{

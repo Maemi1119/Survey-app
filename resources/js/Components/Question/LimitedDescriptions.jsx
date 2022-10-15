@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function Questions({id}) {
+export default function Questions({id,limiteds}) {
     return(
         <div className="hidden" id="limitedDescriptions{id}">
             <Title title='入力を許可する文字を選択してください。'/>

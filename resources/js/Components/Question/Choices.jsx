@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 
-export default function Choices({id,placeholder,placeholder2}) {
+export default function Choices({id,placeholder,placeholder2,choices,addChoices}) {
     return(
         <div className='hidden' id='choice{id}'>
           <Title title='選択肢を作成してください'/>
