@@ -4,7 +4,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 
-export default function Methods({id}) {
+export default function Methods({id,methods}) {
     return(
         <div id={id}>
             <FormControl>

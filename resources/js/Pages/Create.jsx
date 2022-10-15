@@ -22,15 +22,15 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import Questions from '@/Components/Questions';
-import Methods from '@/Components/Methods';
-import Choices from '@/Components/Choices';
-import LimitedDescriptions from '@/Components/LimitedDescriptions';
-import SliderSettings from '@/Components/SliderSettings';
-import Data from '@/Components/Data';
-import QuestionSettings from '@/Components/QuestionSettings';
-import Letter from '@/Components/Letter';
-import Images from '@/Components/Images';
+import Questions from '@/Components/Question/Questions';
+import Methods from '@/Components/Question/Methods';
+import Choices from '@/Components/Question/Choices';    
+import LimitedDescriptions from '@/Components/Question/LimitedDescriptions';
+import SliderSettings from '@/Components/Question/SliderSettings';
+import Data from '@/Components/Question/Data';
+import QuestionSettings from '@/Components/Question/QuestionSettings';
+import Letter from '@/Components/Question/Letter';
+import Images from '@/Components/Question/Images';
 
 export default function Create({ questionaires, methods, auth}) {
     
@@ -46,6 +46,8 @@ export default function Create({ questionaires, methods, auth}) {
         choice: [],
         limited: [],
         data:'',
+        min_letter:'',
+        max_letter:'',
         setting:'',
     });
     
@@ -90,63 +92,66 @@ export default function Create({ questionaires, methods, auth}) {
         
         <form onSubmit={submit}>
         
-            <Questions id={questionaires.id} title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'}/>
+            <Questions id={questionaires.id} title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
             
-            <Methods id={questionaires.id}/>
+            <Methods id={questionaires.id} postData={(e) => setData("method", e.target.value)} methods={methods}/>
             
-            <Choices id={questionaires.id} placeholder={'りんご'} placeholder2={'バナナ'}/>
+            <Choices id={questionaires.id} placeholder={'りんご'} placeholder2={'バナナ'} postData={(e) => setData("choice", e.target.value)} choices={choices} addChoices={addChoices}/>
             
-            <LimitedDescriptions id={questionaires.id}/>
+            <LimitedDescriptions id={questionaires.id} postData={(e) => setData("limited", e.target.value)} limiteds={limiteds}/>
             
-            <SliderSettings id={questionaires.id}/>
+            <SliderSettings id={questionaires.id} postData={(e) => setData("", e.target.value)}/>
             
-            <Data id={questionaires.id}/>
+            <Data id={questionaires.id} postData={(e) => setData("data", e.target.value)} number={number} handleChange={handleChange}/>
             
-            <QuestionSettings id={questionaires.id} number={4} />
+            <QuestionSettings id={questionaires.id} number={4} questionSettings={questionSettings}/>
             
-            <letter id={questionaires.id}/>
+            <letter id={questionaires.id} max={(e) => setData("max_letter", e.target.value)} min={(e) => setData("min_letter", e.target.value)}/>
             
             <div className='hidden' id='show'>
             </div>
             
-            <Images id={questionaires.id}/>
+            <Images id={questionaires.id} postData={(e) => setData("images", e.target.value)}/>
             
             
         {/*２問め以降*/}
+        {/*
         {questions.map((question,index) => {
             return(
                 <div>
-                    <Questions id={index+2} label={'質問文'} placeholder={''}/>
+                    <Questions id={index+2} label={'質問文'} placeholder={''} postData={(e) => setData("question", e.target.value)}/>
                 
-                    <Methods />
+                    <Methods postData={(e) => setData("method", e.target.value)}/>
                     
-                    <Choices id={index+2} placeholder={''} placeholder2={''}/>
+                    <Choices id={index+2} placeholder={''} placeholder2={''} postData={(e) => setData("choice", e.target.value)}/>
                     
-                    <LimitedDescriptions id={index+2}/>
+                    <LimitedDescriptions id={index+2} postData={(e) => setData("limited", e.target.value)}/>
                     
-                    <SliderSettings id={index+2}/>
+                    <SliderSettings id={index+2} postData={(e) => setData("", e.target.value)}/>
                     
-                    <Data id={index+2}/>
+                    <Data id={index+2} postData={(e) => setData("data", e.target.value)}/>
                     
-                    <QuestionSettings id={index+2} number={5} />
+                    <QuestionSettings id={index+2} number={5} postData={(e) => setData("", e.target.value)}/>
                     
-                    <letter id={index+2} />
+                    <letter id={index+2} postData={(e) => setData("max_letter","min_letter", e.target.value)}/>
                     
                     <div className='hidden' id='show'>
                     </div>
                     
-                    <Images iid={index+2}/>
+                    <Images id={index+2} postData={(e) => setData("images", e.target.value)}/>
                     
                     <div className='hidden' id='branch'>
                     </div>
                 </div>
             );
         })}
+        */}
         
-        <Button variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-onClick={() => addQuestions()}>'質問を追加'</Button>
+        <Button component="button" variant="outlined" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+type="submit">質問の追加</Button>
         
-        <Button component="button" variant="contained" type="submit">設定の確認</Button>
+        <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+type="submit">設定の確認</Button>
         </form>
         {/*</AuthenticatedLayout>*/}
         </>

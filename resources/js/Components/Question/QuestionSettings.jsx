@@ -3,7 +3,7 @@ import Title from '@/Components/Title';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function QuestionSettings({id,number}) {
+export default function QuestionSettings({id,number,questionSettings}) {
     return(
         <div id={id} className="setting">
           <Title title='【設定】'/>

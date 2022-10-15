@@ -294,8 +294,7 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='is_logined'
             title='アプリへのログイン'
             content={
-                <Radio2G 
-                    title='アプリへのログイン'
+                <Radio2G  title='アプリへのログイン'
                     label1='必要'
                     label2='不要'
                     func1={''}
@@ -325,11 +324,7 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='user1'
             title='回答を閲覧できるユーザー'
             content={
-                <UsersSetting
-                    title='回答を閲覧できるユーザー'
-                    smaller={3}
-                    bigger={6}
-                />
+                <UsersSetting title='回答を閲覧できるユーザー' smaller={3} bigger={6} postData={(e) => setData("setting", e.target.value)} />
             }
             OK={changeUser1,hideModifyUser1}
             cancel={hideModifyUser1}
@@ -353,11 +348,7 @@ export default function Setting({ questionaires, categories, settings, passwords
             id='user2'
             title='回答を分析できるユーザー'
             content={
-                <UsersSetting
-                    title='回答を分析できるユーザー'
-                    smaller={7}
-                    bigger={10}
-                />
+                <UsersSetting title='回答を分析できるユーザー' smaller={7} bigger={10} postData={(e) => setData("setting", e.target.value)}/>
             }
             OK={changeUser2,hideModifyUser2}
             cancel={hideModifyUser2}
