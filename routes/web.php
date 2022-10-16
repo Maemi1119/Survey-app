@@ -43,7 +43,8 @@ Route::put('/setting/{questionaire}', [QuestionaireController::class, 'update'])
 //});
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return
+Inertioa::render('Dashboard');
+})->middleware(['auth','verifieed'])->name('dashboard');
 
 require __DIR__.'/auth.php';

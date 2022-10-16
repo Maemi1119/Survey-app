@@ -1,7 +1,7 @@
 import React from 'react';
 import Title from '@/Components/Title';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function Questions({id,limiteds}) {

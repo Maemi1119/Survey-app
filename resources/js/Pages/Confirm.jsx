@@ -66,39 +66,39 @@ export default function Setting({ questionaires, categories, settings, passwords
     const [name, setName] = useState('');
     const changeName = () => {
         setName((prevName) => (""));
-      }
+      };
     const [overview, setOverview] = useState('');
     const changeOverview = () => {
         setOverview((prevOverview) => (""));
-      }
+      };
     const [category, setCategory] = useState('');
     const changeCategory = () => {
         setCategory((prevCategory) => (""));
-      }
+      };
     const [count, setCount] = useState('');
     const changeShowQuestionCount = () => {
         setCount((prevCount) => (""));
-      }
+      };
     const [kind, setKind] = useState('');
     const changeKind = () => {
         setKind((prevKind) => (""));
-      }
+      };
     const [pass, setPass] = useState([]);
     const changePass = () => {
         setPass((prevPass) => ([""]));
-      }
+      };
     const [logined, setLogined] = useState('');
     const changeLogined = () => {
         setLogined((prevLogined) => (""));
-      }
+      };
     const [user1, setUser1] = useState([]);
     const changeUser1 = () => {
         setUser1((prevUser1) => ([""]));
-      }
+      };
     const [user2, setUser2] = useState([]);
     const changeUser2 = () => {
         setUser2((prevUser2) => ([""]));
-      }
+      };
       
     {/*cancel*/}
     function hideModifyName(){
