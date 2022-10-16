@@ -18,31 +18,32 @@ class QuestionaireController extends Controller
     }
     
     public function setting(Category $category , Setting $setting){
-        //return Inertia::render('Setting',['categories' => $category->get(), 'settings' => $setting->get()]);
-        return view('setting')->with(['categories' => $category->get(), 'settings' => $setting->get()]);
+        return Inertia::render('Setting',['categories' => $category->get(), 'settings' => $setting->get()]);
+        //return view('setting')->with(['categories' => $category->get(), 'settings' => $setting->get()]);
     }
     
     public function set(Request $request){
         $setting = Questionaire::create([
             'user_id'=>1,
-            'name'=>$request['post']['name'],
-            'overview'=>$request['post']['overview'],
+            'name'=>$request['name'],
+            'overview'=>$request['overview'],
             'category_id'=>NULL,
-            'show_question_count'=>$request['post']['show_question_count'],
-            'is_logined'=>$request['post']['is_logined'],
+            'show_question_count'=>$request['show_question_count'],
+            'is_logined'=>$request['is_logined'],
         ]);
         
-        $setting->settings()->attach($request['settings_radio']);
+        //$setting->settings()->attach($request['settings_radio']);
         
-           foreach($request['settings'] as $value){
-               $setting->settings()->attach($value);
-           }
+       foreach($request['setting'] as $value){
+           $setting->settings()->attach($value);
+       }
         //dd($request['passwords']['password']);
-        $passwords = Password::create([
-          // 'password'=>$request['passwords']['password'],
-           'setting_id'=>1,
-           'password'=>'password'
-        ]);
+        foreach($request['passwords'] as $password){
+            Password::create([
+               'setting_id'=>$password['setting_id'],
+               'password'=>$password['password']
+            ]);
+        }
            
         return redirect('/createform/'. $setting->id);
     }

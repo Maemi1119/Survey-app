@@ -4,10 +4,11 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 export default function Choices({id,placeholder,placeholder2,choices,addChoices}) {
     return(
-        <div className='hidden' id='choice{id}'>
+        <div id='choice{id}'>
           <Title title='選択肢を作成してください'/>
           <TextField placeholder={placeholder} variant="standard"/>
           <TextField placeholder={placeholder2} variant="standard"/>

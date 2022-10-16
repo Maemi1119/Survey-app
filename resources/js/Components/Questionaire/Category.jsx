@@ -1,24 +1,23 @@
 import React from 'react';
 import Title from '@/Components/Title';
-import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function Category({postData,category,handleChange,categories}) {
+export default function Category({postData,categories,data}) {
     return(
         <div>
             <Title title='カテゴリー'/>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={category}
+              value={data.category_id}
               label="Category"
-              onChange={handleChange,{postData}}
+              onChange={postData}
             >
                 <MenuItem disabled value=''><em>選択しない</em></MenuItem>
                 {categories.map(category=>{
                     return (
-                    <MenuItem value={category}>{category}</MenuItem>
+                    <MenuItem value={category.id}>{category.name}</MenuItem>
                     );
                 })}
             </Select>

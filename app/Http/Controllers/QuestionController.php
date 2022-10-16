@@ -19,19 +19,30 @@ class QuestionController extends Controller
         //return view('create')->with(['questionaire'=>$questionaire, 'methods'=>$method->get()]);
     }
     
-    public function create(Request $request, Question $question , Questionaire $questionaire){
-        $input = $request['questions'][0];
-        $question->fill($input);
-        $question->questionaire_id=$questionaire->id;
-        $question->save();
+    public function create(Request $request, Questionaire $questionaire, Method $method){
+        $question = Question::create([
+                "question"=>$request['question'],
+                "method_id"=>$request['method'],
+                "limited"=>$request['limited'],
+                "min_value"=>$request['min_value'],
+                "max_value"=>$request['max_value'],
+                "bar_left"=>$request['bar_left'],
+                "bar_right"=>$request['bar_right'],
+                "data"=>$request['data'],
+                'questionaire_id'=>$questionaire->id,
+            ]);
+        // $input = $request['questions'];
+        // $question->fill($input);
+        // $question->questionaire_id=$questionaire->id;
+        // $question->save();
         
-        foreach($request['choices']['choice'] as $choice){
+        foreach($request['choice'] as $choice){
             Choice::create([
             'question_id'=>$question->id,
             'choice'=>$choice,
             ]);
         }
-        foreach($request['limited_descriptions']['limited'] as $limited){
+        foreach($request['limited'] as $limited){
             LimitedDescription::create([
             'limited'=>$limited,
             'question_id'=>$question->id,

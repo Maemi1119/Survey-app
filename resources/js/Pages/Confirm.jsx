@@ -1,20 +1,8 @@
-import React, { useState,useEffect } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import React, { useState } from 'react';
+import { useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import '../../css/setting.css';
 import ShowText from '@/Components/ShowText';
 import Stack from '@mui/material/Stack';
@@ -22,15 +10,19 @@ import Modify from '@/Components/Modify';
 import ClassModify from '@/Components/ClassModify';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Questions from '@/Components/Question/Questions';
+import Category from '@/Components/Questionaire/Category';
+import Radio2G from '@/Components/Questionaire/Radio2G';
+import UsersSetting from '@/Components/Questionaire/UsersSetting';
 
-export default function Setting({ questionaires, categories, settings, passwords, auth}){
+export default function Confirm({ questionaires, categories, settings, passwords, auth}){
     
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        overview: '',
-        category_id: '',
-        show_question_count: '',
-        is_logined: '',
+        name: questionaires.name,
+        overview: questionaires.overview,
+        category_id: questionaires.category_id,
+        show_question_count: questionaires.show_question_count,
+        is_logined: questionaires.is_logined,
         setting:[],
         password:[],
         provisional: 1
@@ -155,54 +147,54 @@ export default function Setting({ questionaires, categories, settings, passwords
         <form onSubmit={submit}>
         <div>
             <Title title='アンケート名'/>
-            <p>{name.questionaires.name}</p>
+            <p>{questionaires.name}</p>
             <Modify FunctionName={showModifyName} />
         </div>
         
         <ClassModify
             id='name'
-            content={<Questions id={questionaires.id} title='アンケート名' label={''} value={questionaires.name} placeholder={''}/>}
+            content={<Questions title='アンケート名' label={''} value={questionaires.name}/>}
             OK={changeName,hideModifyName}
             cancel={hideModifyName}
         />
         
-        <div>
+        {/*<div>
             <Title title='アンケートの説明'/>
-            <p>{overview.questionaires.overview}</p>
+            <p>{questionaires.overview}</p>
             <Modify FunctionName={showModifyOverview} />
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='overview'
             content={<Questions id={questionaires.id} title='アンケートの説明' label={'説明文'} value={questionaires.overview} placeholder={''}/>}
             OK={changeOverview,hideModifyOverview}
             cancel={hideModifyOverview}
-        />
+        />*/}
         
-        <div>
+        {/*<div>
             <Title title='カテゴリー'/>
-            <p>{category.categories.category}</p>
+            <p>{categories.category}</p>
             <Modify FunctionName={showModifyCategory} />
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='category'
             content={<Category />}
             OK={changeCategory,hideModifyCategory}
             cancel={hideModifyCategory}
-        />
+        />*/}
         
-        <div>
+        {/*<div>
             <Title title='設問数の表示'/>
             <ShowText
-                value={count.questionaires.show_question_count}
+                value={questionaires.show_question_count}
                 content1='表示する'
                 content2='表示しない'
             />
             <Modify FunctionName={showModifyShowQuestionCount} />
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='show_question_count'
             title='設問数の表示'
             content={
@@ -216,17 +208,17 @@ export default function Setting({ questionaires, categories, settings, passwords
             }
             OK={changeShowQuestionCount,hideModifyShowQuestionCount}
             cancel={hideModifyShowQuestionCount}
-        />
+        />*/}
         
-        <div>
+        {/*<div>
            <Title title='アンケートの種類'/> 
            <ShowText
-                id={kind.settings.id}
+                id={settings.id}
                 content1='パブリック'
                 content2='プライベート'
             />
             <div>
-                {pass.passwords.map((password) => {
+                {passwords.map((password) => {
                     return(
                         <div>
                         {(settings.id==2) &&
@@ -238,9 +230,9 @@ export default function Setting({ questionaires, categories, settings, passwords
             </div>
             <Modify FunctionName={showModifyKind} />
             <Button variant="outlined" onClick={changeDisplay}>'パスワードの変更'</Button>
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='kind'
             title='アンケートの種類'
             content={
@@ -254,9 +246,9 @@ export default function Setting({ questionaires, categories, settings, passwords
             }
             OK={changeKind,hideModifyKind}
             cancel={hideModifyKind}
-        />
+        />*/}
         
-        <div id='password'>
+        {/*<div className='hidden' id='password'>
             {passwords.map(password => {
                 return(
                 <Stack direction="row" spacing={0}>
@@ -278,19 +270,19 @@ export default function Setting({ questionaires, categories, settings, passwords
             <Button variant="contained" onClick={changePass,returnDisplay}>'決定'</Button>
             <Button variant="outlined" onClick={returnDisplay}>'キャンセル'</Button>
             </Stack>
-        </div>
+        </div>*/}
         
-        <div>
+        {/*<div>
         <Title title='アプリへのログイン'/>
         <ShowText
-                id={logined.questionaires.is_logined}
+                id={questionaires.is_logined}
                 content1='表示する'
                 content2='表示しない'
             />
         <Modify FunctionName={showModifyLogined} />
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='is_logined'
             title='アプリへのログイン'
             content={
@@ -303,12 +295,11 @@ export default function Setting({ questionaires, categories, settings, passwords
             }
             OK={changeLogined,hideModifyLogined}
             cancel={hideModifyLogined}
-        />
+        />*/}
         
-        <div>
+        {/*<div>
         <Title title='回答を閲覧できるユーザー'/>
-        {/*省略形*/}
-        {user1.settings.map(setting=>
+        {settings.map(setting=>
             (
                 <div>
                 {(setting.id>=3 && setting.id<=6) && 
@@ -318,9 +309,9 @@ export default function Setting({ questionaires, categories, settings, passwords
             )
         )}
         <Modify FunctionName={showModifyUser1} />
-        </div>
+        </div> */}
         
-        <ClassModify
+        {/*<ClassModify
             id='user1'
             title='回答を閲覧できるユーザー'
             content={
@@ -328,11 +319,11 @@ export default function Setting({ questionaires, categories, settings, passwords
             }
             OK={changeUser1,hideModifyUser1}
             cancel={hideModifyUser1}
-        />
+        />*/}
         
-        <div>
+        {/*<div>
         <Title title='回答を分析できるユーザー'/>
-        {user2.settings.map(setting=>
+        {settings.map(setting=>
             {return(
                 <div>
                 {(setting.id>=7 && setting.id<=10) && 
@@ -342,9 +333,9 @@ export default function Setting({ questionaires, categories, settings, passwords
             )}
         )}
         <Modify FunctionName={showModifyUser2} />
-        </div>
+        </div>*/}
         
-        <ClassModify
+        {/*<ClassModify
             id='user2'
             title='回答を分析できるユーザー'
             content={
@@ -352,7 +343,7 @@ export default function Setting({ questionaires, categories, settings, passwords
             }
             OK={changeUser2,hideModifyUser2}
             cancel={hideModifyUser2}
-        />
+        />*/}
         
         <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">アンケートのプレビュー</Button>
         </form>

@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 
 export default function Images({id}) {
     return(
-        <div className='hidden' id='image{id}'>
+        <div id='image{id}'>
             <Stack direction="row" alignItems="center" spacing={0}>
               <Button variant="contained" component="label">
                 Upload

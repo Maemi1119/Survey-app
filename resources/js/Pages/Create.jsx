@@ -1,27 +1,7 @@
-import React, { useState,useEffect } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import React, { useState } from 'react';
+import { useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Stack from '@mui/material/Stack';
 import Questions from '@/Components/Question/Questions';
 import Methods from '@/Components/Question/Methods';
 import Choices from '@/Components/Question/Choices';    
@@ -29,8 +9,7 @@ import LimitedDescriptions from '@/Components/Question/LimitedDescriptions';
 import SliderSettings from '@/Components/Question/SliderSettings';
 import Data from '@/Components/Question/Data';
 import QuestionSettings from '@/Components/Question/QuestionSettings';
-import Letter from '@/Components/Question/Letter';
-import Images from '@/Components/Question/Images';
+import Stack from '@mui/material/Stack';
 
 export default function Create({ questionaires, methods, auth}) {
     
@@ -38,18 +17,24 @@ export default function Create({ questionaires, methods, auth}) {
     const [choices, setChoices] = useState([]);
     const addChoices = () => {
         setChoices((prevChoices) => ([ ...prevChoices, "" ]));
-      }
+      };
     
     const { data, setData, post, processing, errors, reset } = useForm({
         question: '',
-        method: '',
-        choice: [],
-        limited: [],
+        method:'',
+        choice:[],
+        limited:[],
+        min_value:'',
+        max_value:'',
+        bar_left:'',
+        bar_right:'',
         data:'',
-        min_letter:'',
-        max_letter:'',
-        setting:'',
+        
+        required:'',
+        setting:[],
     });
+    
+    console.log(data);
     
     {/*制限*/}
     const limiteds = ['数字','ひらがな','カタカナ','日本語','アルファベット'];
@@ -76,7 +61,7 @@ export default function Create({ questionaires, methods, auth}) {
     const submit = (e) => {
         e.preventDefault();
 
-        //post(route('login'));
+        post('/create/'+questionaires.id);
     };
     
     return (
@@ -92,27 +77,21 @@ export default function Create({ questionaires, methods, auth}) {
         
         <form onSubmit={submit}>
         
-            <Questions id={questionaires.id} title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
+            <Questions title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
             
-            <Methods id={questionaires.id} postData={(e) => setData("method", e.target.value)} methods={methods}/>
+            <Methods postData={(e) => setData("method", e.target.value)} methods={methods}/>
             
-            <Choices id={questionaires.id} placeholder={'りんご'} placeholder2={'バナナ'} postData={(e) => setData("choice", e.target.value)} choices={choices} addChoices={addChoices}/>
-            
-            <LimitedDescriptions id={questionaires.id} postData={(e) => setData("limited", e.target.value)} limiteds={limiteds}/>
-            
-            <SliderSettings id={questionaires.id} postData={(e) => setData("", e.target.value)}/>
-            
-            <Data id={questionaires.id} postData={(e) => setData("data", e.target.value)} number={number} handleChange={handleChange}/>
-            
-            <QuestionSettings id={questionaires.id} number={4} questionSettings={questionSettings}/>
-            
-            <letter id={questionaires.id} max={(e) => setData("max_letter", e.target.value)} min={(e) => setData("min_letter", e.target.value)}/>
-            
-            <div className='hidden' id='show'>
+            <div>
+                {data.method==1&& <Choices placeholder={'りんご'} placeholder2={'バナナ'} postData={(e) => setData("choice",[...data.choice, e.target.value])} choices={choices} addChoices={addChoices}/>}
+                
+                {data.method==3&& <LimitedDescriptions postData={(e) => setData("limited", e.target.value)} limiteds={limiteds}/>}
+                
+                {data.method==4&& <SliderSettings minPost={(e) => setData("min_value", e.target.value)} maxPost={(e) => setData("max_value", e.target.value)} leftPost={(e) => setData("bar_left", e.target.value)} rightPost={(e) => setData("max_value", e.target.value)} />}
+                
+                {data.method==5&& <Data postData={(e) => setData("data", e.target.value)} number={number} handleChange={handleChange}/>}
             </div>
             
-            <Images id={questionaires.id} postData={(e) => setData("images", e.target.value)}/>
-            
+            <QuestionSettings questionSettings={questionSettings} data={data} postData={(e) => setData("setting",[...data.setting, e.target.value])} questionaires={questionaires}/>
             
         {/*２問め以降*/}
         {/*
