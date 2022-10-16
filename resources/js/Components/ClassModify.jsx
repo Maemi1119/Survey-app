@@ -5,7 +5,7 @@ import Title from '@/Components/Title';
 
 export default function ClassModify({id,content,OK,cancel}) {
     return(
-        <div className='Modify' id={id}>
+        <div className='hidden' id={id}>
             {content}
             <Stack direction="row" spacing={2}>
                 <Button variant="contained" onClick={{OK}}>'決定'</Button>

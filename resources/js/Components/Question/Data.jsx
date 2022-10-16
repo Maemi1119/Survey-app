@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 export default function Data({id,number,handleChange}) {
     return(
-        <div className='hidden' id="data{id}">
+        <div id="data{id}">
           <Title title='アップロードを許可するファイルの個数を選択してください。'/>
           <Select
           labelId="demo-simple-select-label"

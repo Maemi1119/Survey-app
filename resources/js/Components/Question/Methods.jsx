@@ -3,8 +3,9 @@ import Title from '@/Components/Title';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
-export default function Methods({id,methods}) {
+export default function Methods({id,methods,postData}) {
     return(
         <div id={id}>
             <FormControl>
@@ -12,7 +13,7 @@ export default function Methods({id,methods}) {
               <RadioGroup>
                 {methods.map(method=>{
                     return (
-                    <FormControlLabel value={method.id} control={<Radio />} label={method.method} />
+                    <FormControlLabel value={method.id} control={<Radio />} label={method.method} onChange={postData}/>
                     );
                 })}
               </RadioGroup>

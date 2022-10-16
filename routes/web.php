@@ -35,7 +35,7 @@ Route::get('/createform/{questionaire}', [QuestionController::class, 'question']
 Route::post('/create/{questionaire}', [QuestionController::class,'create']);
 
 Route::get('/setting/{questionaire}', [QuestionaireController::class, 'check']);
-Route::put('/setting/{questionaire}', [QuestionaireController::class, 'update']);
+//Route::put('/setting/{questionaire}', [QuestionaireController::class, 'update']);
 
 
 //Route::get('/', function () {
