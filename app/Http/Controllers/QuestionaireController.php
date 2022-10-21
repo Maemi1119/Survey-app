@@ -58,6 +58,6 @@ class QuestionaireController extends Controller
         $input_post = $request['settings'];
         $post->fill($input_post)->save();
 
-        return redirect('/posts/' . $post->id);
+        return redirect('/preview/' . $questionaire->id);
     }
 }
