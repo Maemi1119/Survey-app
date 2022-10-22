@@ -3,7 +3,22 @@ import Title from '@/Components/Title';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function UsersSetting({title,smaller,bigger,postData,settings}) {
+export default function UsersSetting({title,smaller,bigger,postData,settings,passData,passwords,addPasswords}) {
+    
+    function changeDisplay(){
+    document.getElementById('pass6') . style . display = "inline";
+    }
+    function returnDisplay(){
+    document.getElementById('pass6') . style . display = "none";
+    }
+    
+    function changeDisplay(){
+    document.getElementById('pass10') . style . display = "inline";
+    }
+    function returnDisplay(){
+    document.getElementById('pass10') . style . display = "none";
+    }
+    
     return(
         <div>
             <Title title={title}/>
