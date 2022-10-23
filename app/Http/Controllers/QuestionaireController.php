@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Datetime;
 use Inertia\Inertia;
 
+
 class QuestionaireController extends Controller
 {
     //
@@ -45,11 +46,11 @@ class QuestionaireController extends Controller
             ]);
         }
            
-        return redirect('/createform/'. $setting->id);
+        return redirect('/createform/' . $setting->id);
     }
     
-    public function check(Questionaire $questionaire, Category $category, Password $password){
-        return Inertia::render('Confirm',['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->get()]);
+    public function check(Questionaire $questionaire, Category $category, Password $password, Setting $settings){
+        return Inertia::render('Confirm',['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->get(), 'settings' => $questionaire->settings()->get(), 'sett'=> $settings->get()]);
         //return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
     }
     

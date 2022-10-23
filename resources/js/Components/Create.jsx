@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useCallback } from 'react';
 import { useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
 import Button from '@mui/material/Button';
@@ -15,9 +15,33 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
     
     {/*choice*/}
     const [choices, setChoices] = useState([]);
-    const addChoices = () => {
+    const addChoices = useCallback(() => {
         setChoices((prevChoices) => ([ ...prevChoices, "" ]));
-      };
+      });
+    const handleChoice = useCallback((event) =>{
+      const name=event.target.name;
+      const value=event.target.value;
+      if (data.choice.length == 0) {
+        setData('choice', [{[name]: value}]); 
+      }else if(data.choice.length==1){
+          if(Object.keys(data.choice[0])==name){
+              setData('choice', data.choice.map((choice, index) => (Object.keys(choice)[0] === name ? {[name]: value} : choice)));
+          }else{
+              setData('choice', [...data.choice,{[name]:value}]);
+          }
+      }else{
+          let check = false;
+          data.choice.forEach((choice,index)=>{
+              if(Object.keys(choice)[0]==name){
+                  setData('choice', data.choice.map((choice, index) => (Object.keys(choice)[0] === name ? {[name]: value} : choice)));
+                  check = true;
+              }
+          });
+          if(!check){
+              setData('choice', [...data.choice,{[name]:value}]);
+          }
+      }
+    });
     
     const { data, setData, post, processing, errors, reset } = useForm({
         question: '',
@@ -43,6 +67,7 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
     const [number, setNumber] = React.useState('');
     const handleChange = (event) => {
     setNumber(event.target.value);
+    setData("data", event.target.value);
     };
     
     {/*設定*/}
@@ -60,6 +85,20 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
         const settingData = data.setting.filter((value) => !( value == e.target.value ));
         setData("setting", settingData);
     };
+    
+    const handleLimitedList = useCallback((e) => {
+        if (data.limited.includes(String(e.target.value))) {
+            removeLimited(e);
+        } else {
+            console.log('test');
+            setData("limited", [...data.limited, e.target.value]);
+        }
+    });
+
+    const removeLimited = (e) => {
+        const settingLimited = data.limited.filter((value) => !( value == e.target.value ));
+        setData("limited", settingLimited);
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -69,26 +108,23 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
     
     return (
         <>
-            <form onSubmit={submit}>
+            <Questions title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
             
-                <Questions title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
+            <Methods postData={(e) => setData("method", e.target.value)} methods={methods}/>
+            
+            <div>
+                {data.method==1&& <Choices placeholder={'りんご'} placeholder2={'バナナ'} choices={choices} addChoices={addChoices} handleChoice={handleChoice}/>}
                 
-                <Methods postData={(e) => setData("method", e.target.value)} methods={methods}/>
+                {data.method==3&& <LimitedDescriptions handleLimitedList={handleLimitedList} limiteds={limiteds}/>}
                 
-                <div>
-                    {data.method==1&& <Choices placeholder={'りんご'} placeholder2={'バナナ'} postData={(e) => setData("choice",[...data.choice, e.target.value])} choices={choices} addChoices={addChoices}/>}
-                    
-                    {data.method==3&& <LimitedDescriptions postData={(e) => setData("limited", e.target.value)} limiteds={limiteds}/>}
-                    
-                    {data.method==4&& <SliderSettings minPost={(e) => setData("min_value", e.target.value)} maxPost={(e) => setData("max_value", e.target.value)} leftPost={(e) => setData("bar_left", e.target.value)} rightPost={(e) => setData("max_value", e.target.value)} />}
-                    
-                    {data.method==5&& <Data postData={(e) => setData("data", e.target.value)} number={number} handleChange={handleChange}/>}
-                </div>
+                {data.method==4&& <SliderSettings minPost={(e) => setData("min_value", e.target.value)} maxPost={(e) => setData("max_value", e.target.value)} leftPost={(e) => setData("bar_left", e.target.value)} rightPost={(e) => setData("bar_right", e.target.value)} />}
                 
-                <QuestionSettings questionSettings={questionSettings} data={data} postData={handleSettingList} questionaires={questionaires}/>
-                <Button component="button" variant="contained" type='submit' onClick={addQuestions} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-    >保存</Button>
-            </form>
+                {data.method==5&& <Data number={number} handleChange={handleChange}/>}
+            </div>
+            
+            <QuestionSettings questionSettings={questionSettings} data={data} postData={handleSettingList} questionaires={questionaires}/>
+            <Button component="button" variant="contained" onClick={() => addQuestions(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+>保存</Button>
         </>
     );
 }
