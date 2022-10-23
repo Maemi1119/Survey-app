@@ -35,6 +35,20 @@ export default function Setting({ categories, settings, auth}){
     document.getElementById('password') . style . display = "none";
     }
     
+    console.log(data);
+    
+    const handleSettingIdList = (e) => {
+        if (data.setting.includes(String(e.target.value))) {
+            removeId(e);
+        } else {
+            setData("setting", [...data.setting, e.target.value]);
+        }
+    };
+
+    const removeId = (e) => {
+        const settingData = data.setting.filter((value) => !( value == e.target.value ));
+        setData("setting", settingData);
+    };
     
     
     const submit = (e) => {
@@ -56,15 +70,15 @@ export default function Setting({ categories, settings, auth}){
                 
                 <div>
                    <Radio2G title='アンケートの種類' label1='パブリック' label2='プライベート' func1={returnDisplay} func2={changeDisplay} postData={(e) => setData("setting", [...data.setting,e.target.value])}/>
-                   <SurveyPass id='password' postData={(e) => setData("passwords", [...data.passwords,{"setting_id":2,"password":e.target.value}])} passwords={passwords} addPasswords={addPasswords}/>
+                   <SurveyPass postData={(e) => setData("passwords", [...data.passwords,{"setting_id":2,"password":e.target.value}])} passwords={passwords} addPasswords={addPasswords}/>
                 </div>
                 
                 <Radio2G title='アプリへのログイン' label1='必要' label2='不要' postData={(e) => setData("is_logined", e.target.value)}/>
                 
-                <UsersSetting title='回答を閲覧できるユーザー' smaller={3} bigger={6} postData={(e) => setData("setting",[...data.setting, e.target.value])} settings={settings} passData={(e) => setData("passwords", [...data.passwords,{"setting_id":6,"password":e.target.value}])} passwords={passwords} addPasswords={addPasswords}/>
-                {data.setting.includes(String(6))&&<TextField label="password" variant="standard" onChange={(e) => setData("passwords", [...data.passwords,{"setting_id":6,"password":e.target.value}])}/>}
-                <UsersSetting title='回答を分析できるユーザー' smaller={7} bigger={10} postData={(e) => setData("setting",[...data.setting, e.target.value])} settings={settings} passData={(e) => setData("passwords", [...data.passwords,{"setting_id":10,"password":e.target.value}])} passwords={passwords} addPasswords={addPasswords}/>
-                {data.setting.includes(String(10))&&<TextField label="password" variant="standard" onChange={(e) => setData("passwords", [...data.passwords,{"setting_id":10,"password":e.target.value}])}/>}
+                <UsersSetting title='回答を閲覧できるユーザー' smaller={3} bigger={6}  settings={settings} handleList={handleSettingIdList}/>
+                {data.setting.includes(String(6))&& <TextField label="password" variant="standard" onChange={(e) => setData("passwords", [...data.passwords,{"setting_id":6,"password":e.target.value}])}/>}
+                <UsersSetting title='回答を分析できるユーザー' smaller={7} bigger={10} settings={settings} handleList={handleSettingIdList}/>
+                {data.setting.includes(String(10))&& <TextField label="password" variant="standard" onChange={(e) => setData("passwords", [...data.passwords,{"setting_id":10,"password":e.target.value}])}/>}
                 <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">質問の作成</Button>
             </form>
         </div>

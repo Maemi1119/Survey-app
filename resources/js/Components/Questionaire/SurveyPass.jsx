@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 export default function SurveyPass({postData,passwords,addPasswords}) {
     return(
-        <div>
+        <div id='password'>
             <TextField label="password" variant="standard" onChange={postData}/>
             {passwords.map((password) => {
                 return(
