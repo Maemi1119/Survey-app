@@ -35,8 +35,6 @@ export default function Setting({ categories, settings, auth}){
     document.getElementById('password') . style . display = "none";
     }
     
-    console.log(data);
-    
     const handleSettingIdList = (e) => {
         if (data.setting.includes(String(e.target.value))) {
             removeId(e);
@@ -53,7 +51,6 @@ export default function Setting({ categories, settings, auth}){
     
     const submit = (e) => {
         e.preventDefault();
-
         post('/setting');
     };
     
@@ -69,7 +66,7 @@ export default function Setting({ categories, settings, auth}){
                 <Radio2G title='設問数の表示' label1='表示する' label2='表示しない' postData={(e) => setData("show_question_count", e.target.value)}/>
                 
                 <div>
-                   <Radio2G title='アンケートの種類' label1='パブリック' label2='プライベート' func1={returnDisplay} func2={changeDisplay} postData={(e) => setData("setting", [...data.setting,e.target.value])}/>
+                   <Radio2G title='アンケートの種類' label1='パブリック' label2='プライベート' func1={returnDisplay} func2={changeDisplay} postData={(e) => setData("setting", e.target.value)}/>
                    <SurveyPass postData={(e) => setData("passwords", [...data.passwords,{"setting_id":2,"password":e.target.value}])} passwords={passwords} addPasswords={addPasswords}/>
                 </div>
                 

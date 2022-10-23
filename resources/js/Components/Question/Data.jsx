@@ -3,9 +3,9 @@ import Title from '@/Components/Title';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function Data({id,number,handleChange}) {
+export default function Data({number,handleChange}) {
     return(
-        <div id="data{id}">
+        <div>
           <Title title='アップロードを許可するファイルの個数を選択してください。'/>
           <Select
           labelId="demo-simple-select-label"

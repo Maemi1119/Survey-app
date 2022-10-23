@@ -31,7 +31,7 @@ use Inertia\Inertia;
 Route::get('/', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 
-Route::get('/createform/{questionaire}', [QuestionController::class, 'question']);
+Route::get('/createform/{questionaire}', [QuestionController::class, 'question'])->name('create');
 Route::post('/create/{questionaire}', [QuestionController::class,'create']);
 
 Route::get('/setting/{questionaire}', [QuestionaireController::class, 'check']);

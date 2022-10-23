@@ -15,7 +15,7 @@ import Category from '@/Components/Questionaire/Category';
 import Radio2G from '@/Components/Questionaire/Radio2G';
 import UsersSetting from '@/Components/Questionaire/UsersSetting';
 
-export default function Confirm({ questionaires, categories, settings, passwords, auth}){
+export default function Confirm({ questionaires, categories, settings, passwords, sett,auth}){
     
     const { data, setData, post, processing, errors, reset } = useForm({
         name: questionaires.name,
@@ -31,9 +31,11 @@ export default function Confirm({ questionaires, categories, settings, passwords
     {/*modify*/}
     function showModifyName(){
         document.getElementById('name') . style . display = "inline";
+        setOpen((prevOpen)=>({...prevOpen,name:false}));
         }
     function showModifyOverview(){
         document.getElementById('overview') . style . display = "inline";
+        setOpen((prevOpen)=>({...prevOpen,overview:false}));
         }
     function showModifyCategory(){
         document.getElementById('category') . style . display = "inline";
@@ -55,10 +57,59 @@ export default function Confirm({ questionaires, categories, settings, passwords
         }
     
     {/*OK*/}
-    const [name, setName] = useState(questionaires.name);
-    const changeName = () => {
-        setName((prevName) => (setName));
-      }
+    const [current,setCurrent] = useState({
+        name:questionaires.name,
+        overview:questionaires.overview,
+        category:categories.category,
+        count:questionaires.show_question_count,
+        kind:questionaires.kind,
+        pass:questionaires.pass,
+        logined:questionaires.is_logined,
+        user1:settings.filter(setting => setting.id>=3 && setting.id<=6),
+        user2:settings.filter(setting => setting.id>=7 && setting.id<=10)
+    });
+    console.log(current.user2);
+    const [newCurrent,setNewCurrent] = useState({
+        name:questionaires.name,
+        overview:questionaires.overview,
+        category:categories.category,
+        count:questionaires.show_question_count,
+        kind:questionaires.kind,
+        pass:questionaires.pass,
+        logined:questionaires.is_logined,
+        user1:[],
+        user2:[]
+    });
+    
+    const [open,setOpen] = useState({
+        name:true,
+        overview:true,
+        category:true,
+        count:true,
+        kind:true,
+        pass:true,
+        logined:true,
+        user1:true,
+        user2:true
+    });
+    
+    const changeName = (name) => {
+        setCurrent((prevCurrent) => ({...prevCurrent, name:name}));
+        hideModifyName();
+      };
+    
+    const changeOverview = (overview) => {
+        setCurrent((prevCurrent) => ({...prevCurrent, overview:overview}));
+        hideModifyOverview();
+      };
+    
+    const changeUser2 = () => {
+        console.log('niku');
+      };
+     
+    
+    {/*const [name, setName] = useState(questionaires.name);
+    
     const [overview, setOverview] = useState('');
     const changeOverview = () => {
         setOverview((prevOverview) => (""));
@@ -90,14 +141,16 @@ export default function Confirm({ questionaires, categories, settings, passwords
     const [user2, setUser2] = useState([]);
     const changeUser2 = () => {
         setUser2((prevUser2) => ([""]));
-      }
+      }*/}
       
     {/*cancel*/}
     function hideModifyName(){
         document.getElementById('name') . style . display = "none";
+        setOpen((prevOpen)=>({...prevOpen,name:true}));
         }
     function hideModifyOverview(){
         document.getElementById('overview') . style . display = "none";
+        setOpen((prevOpen)=>({...prevOpen,overview:true}));
         }
     function hideModifyCategory(){
         document.getElementById('category') . style . display = "none";
@@ -116,12 +169,13 @@ export default function Confirm({ questionaires, categories, settings, passwords
         }
     function hideModifyUser2(){
         document.getElementById('user2') . style . display = "none";
+        setOpen((prevOpen)=>({...prevOpen,user2:true}));
         }
     
-    {/*category*/}
+    {/*category
     const handleChange = (event) => {
     setCategory(event.target.value);
-    };
+    };*/}
     
     {/*Password*/}
     const addPass = () => {
@@ -136,10 +190,24 @@ export default function Confirm({ questionaires, categories, settings, passwords
     document.getElementById('password') . style . display = "none";
     }
     
+    const handleUser2List = (e) => {
+        console.log(newCurrent.user2);
+        if (newCurrent.user2.includes(String(e.target.value))) {
+            removeId(e);
+        } else {
+            setNewCurrent(prevNewCurrent =>({...prevNewCurrent, user2:[...prevNewCurrent.user2, e.target.value]}));
+        }
+    };
+
+    const removeId = (e) => {
+        const settingData = newCurrent.user2.filter((value) => !( value == e.target.value ));
+        setNewCurrent(prevNewCurrent =>({...prevNewCurrent, user2:[...prevNewCurrent.user2, settingData]}));
+    };
+    
     const submit = (e) => {
         e.preventDefault();
 
-        post(/setting/);
+        //post(/setting/);
     };
     
     return(
@@ -147,31 +215,33 @@ export default function Confirm({ questionaires, categories, settings, passwords
         <form onSubmit={submit}>
         <div>
             <Title title='アンケート名'/>
-            <p>{name}</p>
+            <p>{current.name}</p>
+            {open.name&&
             <Modify FunctionName={showModifyName} />
+            }
         </div>
         
         <ClassModify
             id='name'
-            content={<Questions title='アンケート名' postData={(e) => setName(e.target.value)}/>}
-            OK={changeName,hideModifyName}
+            content={<Questions title='アンケート名' postData={(e) => setNewCurrent((prevNewCurrent)=>({...prevNewCurrent,name:e.target.value}))}/>}
+            OK={() => changeName(newCurrent.name)}
             cancel={hideModifyName}
         />
         
-        {/*<div>
+        <div>
             <Title title='アンケートの説明'/>
-            <p>{questionaires.overview}</p>
+            <p>{current.overview}</p>
             <Modify FunctionName={showModifyOverview} />
         </div>
         
         <ClassModify
             id='overview'
-            content={<Questions title='アンケートの説明' label={'説明文'} postData={(e) => setOverview(e.target.value)}/>}
-            OK={changeOverview,hideModifyOverview}
+            content={<Questions title='アンケートの説明' label={'説明文'} postData={(e) => setNewCurrent((prevNewCurrent)=>({...prevNewCurrent,overview:e.target.value}))}/>}
+            OK={() => changeOverview(newCurrent.overview)}
             cancel={hideModifyOverview}
         />
         
-        <div>
+        {/*<div>
             <Title title='カテゴリー'/>
             <p>{categories.category}</p>
             <Modify FunctionName={showModifyCategory} />
@@ -182,7 +252,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
             content={<Category />}
             OK={changeCategory,hideModifyCategory}
             cancel={hideModifyCategory}
-        />*/}
+        />
         
         <div>
             <Title title='設問数の表示'/>
@@ -214,7 +284,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
                 content1='パブリック'
                 content2='プライベート'
             />
-            {/*<div>
+            <div>
                 {passwords.map((password) => {
                     return(
                         <div>
@@ -224,7 +294,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
                         </div>
                     );
                 })}
-            </div>*/}
+            </div>
             <Modify FunctionName={showModifyKind} />
             <Button variant="outlined" onClick={changeDisplay}>'パスワードの変更'</Button>
         </div>
@@ -292,7 +362,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
             cancel={hideModifyLogined}
         />
         
-        {/*<div>
+        <div>
         <Title title='回答を閲覧できるユーザー'/>
         {settings.map(setting=>
             (
@@ -314,17 +384,13 @@ export default function Confirm({ questionaires, categories, settings, passwords
             }
             OK={changeUser1,hideModifyUser1}
             cancel={hideModifyUser1}
-        />
+        />*/}
         
         <div>
         <Title title='回答を分析できるユーザー'/>
-        {settings.map(setting=>
+        {current.user2.map(setting=>
             {return(
-                <div>
-                {(setting.id>=7 && setting.id<=10) && 
                     <p>{setting.setting}</p>
-                }
-                </div>
             )}
         )}
         <Modify FunctionName={showModifyUser2} />
@@ -334,11 +400,11 @@ export default function Confirm({ questionaires, categories, settings, passwords
             id='user2'
             title='回答を分析できるユーザー'
             content={
-                <UsersSetting title='回答を分析できるユーザー' smaller={7} bigger={10} postData={(e) => setData("setting", e.target.value)}/>
+                <UsersSetting title='回答を分析できるユーザー' settings={sett} smaller={7} bigger={10} handleList={handleUser2List}/>
             }
-            OK={changeUser2,hideModifyUser2}
+            OK={changeUser2}
             cancel={hideModifyUser2}
-        />*/}
+        />
         
         <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">アンケートのプレビュー</Button>
         </form>

@@ -20,34 +20,33 @@ class QuestionController extends Controller
     }
     
     public function create(Request $request, Questionaire $questionaire, Method $method){
-        $question = Question::create([
-                "question"=>$request['question'],
-                "method_id"=>$request['method'],
-                "limited"=>$request['limited'],
-                "min_value"=>$request['min_value'],
-                "max_value"=>$request['max_value'],
-                "bar_left"=>$request['bar_left'],
-                "bar_right"=>$request['bar_right'],
-                "data"=>$request['data'],
+        foreach($request['questions'] as $q){
+           $question = Question::create([
+                "question"=>$q['question'],
+                "method_id"=>$q['method'],
+                "limited"=>$q['limited'],
+                "min_value"=>$q['min_value'],
+                "max_value"=>$q['max_value'],
+                "bar_left"=>$q['bar_left'],
+                "bar_right"=>$q['bar_right'],
+                "data"=>$q['data'],
                 'questionaire_id'=>$questionaire->id,
             ]);
-        // $input = $request['questions'];
-        // $question->fill($input);
-        // $question->questionaire_id=$questionaire->id;
-        // $question->save();
         
-        foreach($request['choice'] as $choice){
-            Choice::create([
-            'question_id'=>$question->id,
-            'choice'=>$choice,
-            ]);
+            foreach($q['choice'] as $choice){
+                Choice::create([
+                'question_id'=>$question->id,
+                'choice'=>array_values($choice)[0],
+                ]);
+            }
+            foreach($q['limited'] as $limited){
+                LimitedDescription::create([
+                'limited'=>$limited,
+                'question_id'=>$question->id,
+                ]);
+            } 
         }
-        foreach($request['limited'] as $limited){
-            LimitedDescription::create([
-            'limited'=>$limited,
-            'question_id'=>$question->id,
-            ]);
-        }
+        
     }
     
 }
