@@ -15,7 +15,7 @@ class QuestionController extends Controller
 {
     //
     public function question(Questionaire $questionaire , Method $method){
-        return Inertia::render('Create',['questionaires'=>$questionaire, 'methods'=>$method->get()]);
+        return Inertia::render('CreateQuestions',['questionaires'=>$questionaire, 'methods'=>$method->get()]);
         //return view('create')->with(['questionaire'=>$questionaire, 'methods'=>$method->get()]);
     }
     
@@ -48,7 +48,6 @@ class QuestionController extends Controller
             'question_id'=>$question->id,
             ]);
         }
-        return redirect('/setting/' . $questionaire->id);
     }
     
 }
