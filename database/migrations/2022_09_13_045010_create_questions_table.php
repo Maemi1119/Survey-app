@@ -18,11 +18,11 @@ return new class extends Migration
             $table->foreignId('questionaire_id')->constrained('questionaires');
             $table->string('question');
             $table->integer('method_id')->unsigned();
-            $table->integer('max_value')->nullable();
-            $table->integer('min_value')->nullable();
             $table->string('bar')->nullable();
             $table->string('bar_left')->nullable();
             $table->string('bar_right')->nullable();
+            $table->string('min_value')->nullable();
+            $table->string('max_value')->nullable();
             $table->text('data')->nullable();
             $table->integer('max_letter')->nullable();
             $table->integer('min_letter')->nullable();

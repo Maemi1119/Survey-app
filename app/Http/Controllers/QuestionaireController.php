@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Questionaire;
+use App\Models\Question;
+use App\Models\Method;
+use App\Models\Choice;
 use App\Models\Category;
 use App\Models\Setting;
 use App\Models\Password;
@@ -50,7 +53,13 @@ class QuestionaireController extends Controller
     }
     
     public function check(Questionaire $questionaire, Category $category, Password $password, Setting $settings){
-        return Inertia::render('Confirm',['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->get(), 'settings' => $questionaire->settings()->get(), 'sett'=> $settings->get()]);
+        return Inertia::render('Confirm',[
+            'questionaires' => $questionaire, 
+            'categories' => $category->get(), 
+            'passwords' => $password->get(), 
+            'settings' => $questionaire->settings()->get(), 
+            'sett'=> $settings->get()
+            ]);
         //return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
     }
     
@@ -58,7 +67,17 @@ class QuestionaireController extends Controller
         $input_post = $request['post'];
         $input_post = $request['settings'];
         $post->fill($input_post)->save();
-
+        
         return redirect('/preview/' . $questionaire->id);
     }
+    
+    public function preview(Questionaire $questionaire, Question $question, Method $method, Choice $choice){
+        return Inertia::render('Preview',[
+            'questionaires' => $questionaire,
+            'questions' => $question->with('choices')->where('questionaire_id', $questionaire->id)->get(),
+            'methods' => $method->get(),
+            'choices' => $choice->where('question_id',$questionaire->id)->get()
+            ]);
+    }
+    
 }

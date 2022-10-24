@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 export default function CreateQuestions({ questionaires, methods, auth}) {
     
     const submit = () => {
+        addQuestions();
+ 
         if(questions==0){
             return false;
         }
@@ -23,7 +25,7 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
                 check = true;
             }else if(question.method==4 && !barVali(question)){
                 check = true;
-            }else if(question.method==5 && !dataVali(question)){
+            }else if(question.method==5 && !imageVali(question)){
                 check = true;
             }
         });
@@ -49,7 +51,7 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
             return false
         }else if(question.method==4 && !barVali(question)){
             return false
-        }else if(question.method==5 && !dataVali(question)){
+        }else if(question.method==5 && !imageVali(question)){
             return false
         }
         setQuestions((prevQuestions) => ([ ...prevQuestions, question ]));
@@ -103,9 +105,9 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         }
     };
     
-    const dataVali = (question) =>{
-        const dataNumber = question.data;
-        if(dataNumber !== ''){
+    const imageVali = (question) =>{
+        const image = question.image;
+        if(image !== ''){
             return true;
         }else{
             return false;

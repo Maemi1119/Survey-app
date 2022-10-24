@@ -53,7 +53,7 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
         bar_left:'',
         bar_right:'',
         data:'',
-        
+        image:'',
         required:'',
         setting:[],
     });
@@ -67,7 +67,7 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
     const [number, setNumber] = React.useState('');
     const handleChange = (event) => {
     setNumber(event.target.value);
-    setData("data", event.target.value);
+    setData("image", event.target.value);
     };
     
     {/*設定*/}
@@ -124,7 +124,7 @@ export default function Create({ questionaires, methods, auth, addQuestions}) {
             
             <QuestionSettings questionSettings={questionSettings} data={data} postData={handleSettingList} questionaires={questionaires}/>
             <Button component="button" variant="contained" onClick={() => addQuestions(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
->保存</Button>
+>質問の追加</Button>
         </>
     );
 }
