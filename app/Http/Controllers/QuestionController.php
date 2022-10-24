@@ -30,6 +30,7 @@ class QuestionController extends Controller
                 "bar_left"=>$q['bar_left'],
                 "bar_right"=>$q['bar_right'],
                 "data"=>$q['data'],
+                'image'=>$q['image'],
                 'questionaire_id'=>$questionaire->id,
             ]);
         

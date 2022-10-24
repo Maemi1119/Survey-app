@@ -47,7 +47,47 @@ export default function Setting({ categories, settings, auth}){
         const settingData = data.setting.filter((value) => !( value == e.target.value ));
         setData("setting", settingData);
     };
+
+{/*
+    const validation = (data) => {
+        const name = data.name;
+        const showCount = data.show_question_count;
+        const login = data.is_logined;
+        if ((name.trim().length !== 0) && (showCount !== "") && (login !== "") && (setting !== "")){ 
+            return true;
+        }else{
+            return false;
+        }
+    };
     
+    const kindVali = (data) =>{
+        const kind = data.kind;
+        const kPass = data.passwords.filter();
+        if(kind !== ""){
+            if(kPass){
+                
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    
+    const settVali = (data) =>{
+        const setting = data.setting;
+        const sPass = data.passwords.filter();
+        if(setting !== ""){
+            if(sPass){
+                
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    */}
     
     const submit = (e) => {
         e.preventDefault();

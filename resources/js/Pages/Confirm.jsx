@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useForm } from '@inertiajs/inertia-react';
+import {Inertia} from "@inertiajs/inertia";
+import { Link,useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -106,7 +107,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
     const changeUser2 = () => {
         console.log('niku');
       };
-     
+    
     
     {/*const [name, setName] = useState(questionaires.name);
     
@@ -206,7 +207,7 @@ export default function Confirm({ questionaires, categories, settings, passwords
     
     const submit = (e) => {
         e.preventDefault();
-
+        Inertia.get('/preview/'+questionaires.id);
         //post(/setting/);
     };
     

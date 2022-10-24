@@ -29,8 +29,13 @@ class Question extends Model
     return $this->hasMany(LimitedDescription::class);
     }
     
+    public function choices(){
+    return $this->hasMany(Choice::class);
+    }
+    
     protected $fillable = [
         'question',
+        'method_id',
         'max_value',
         'min_value',
         'bar',
@@ -44,6 +49,8 @@ class Question extends Model
         'question_id',
         'questionaire_id',
         'method_id',
+        'image',
         'branch',
+        
     ];
 }

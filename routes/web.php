@@ -37,7 +37,7 @@ Route::post('/create/{questionaire}', [QuestionController::class,'create']);
 Route::get('/setting/{questionaire}', [QuestionaireController::class, 'check']);
 Route::put('/setting/', [QuestionaireController::class, 'update']);
 
-Route::get('/preview/{questionaire}', [QuestionaireController::class, 'check']);
+Route::get('/preview/{questionaire}', [QuestionaireController::class, 'preview'])->name('preview');
 
 //Route::get('/', function () {
 //    return view('welcome');
