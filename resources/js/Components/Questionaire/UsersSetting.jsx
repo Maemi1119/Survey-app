@@ -12,7 +12,7 @@ export default function UsersSetting({title,smaller,bigger,settings,handleList})
                 return(
                     <div>
                         {(setting.id>=Number(smaller) && setting.id<=Number(bigger)) &&
-                            <FormControlLabel control={<Checkbox />} value={setting.id} label={setting.setting} onClick={handleList}/>
+                            <FormControlLabel control={<Checkbox name="setting" onChange={handleList} />} value={setting.id} label={setting.setting}/>
                         }
                     </div>
                 )}

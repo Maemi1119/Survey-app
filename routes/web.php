@@ -25,10 +25,12 @@ use Inertia\Inertia;
 }); */
 
 
-{/*Route::get('/', function(){
-    return Inertia::render('Setting');
-});*/}
-Route::get('/', [QuestionaireController::class,'setting']);
+Route::get('/', function(){
+    return Inertia::render('Account');
+});
+
+
+//Route::get('/', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 
 Route::get('/createform/{questionaire}', [QuestionController::class, 'question'])->name('create');
