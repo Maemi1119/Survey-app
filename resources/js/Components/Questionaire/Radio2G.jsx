@@ -4,13 +4,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 
-export default function Radio2G({title,postData,label1,label2,func1,func2}) {
+export default function Radio2G({title,postData,label,name}) {
     return(
         <div>
             <Title title={title}/>
-            <RadioGroup>
-            <FormControlLabel value={1} control={<Radio />} label={label1} onClick={func1} onChange={postData}/>
-            <FormControlLabel value={2} control={<Radio />} label={label2} onClick={func2} onChange={postData}/>
+            <RadioGroup name={name}>
+                <FormControlLabel value={1} control={<Radio />} label={label[0]} onChange={postData}/>
+                <FormControlLabel value={2} control={<Radio />} label={label[1]} onChange={postData}/>
             </RadioGroup>
         </div>
     );

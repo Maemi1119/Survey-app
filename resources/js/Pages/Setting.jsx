@@ -86,8 +86,7 @@ export default function Setting({ categories, settings, auth}){
         }else{
             return false;
         }
-    }
-    */}
+    }*/}
     
     const submit = (e) => {
         e.preventDefault();

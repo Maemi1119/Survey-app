@@ -22,7 +22,7 @@ class QuestionaireController extends Controller
     }
     
     public function setting(Category $category , Setting $setting){
-        return Inertia::render('Setting',['categories' => $category->get(), 'settings' => $setting->get()]);
+        return Inertia::render('Setting2',['categories' => $category->get(), 'settings' => $setting->get()]);
         //return view('setting')->with(['categories' => $category->get(), 'settings' => $setting->get()]);
     }
     

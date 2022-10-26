@@ -11,6 +11,7 @@ export default function QuestionSettings({postData,questionSettings,data,questio
         {id:1, content:<Letter id={questionaires.id} max={(e) => setData("max_letter", e.target.value)} min={(e) => setData("min_letter", e.target.value)}/>},
         {id:2, content:<p>表示</p>},
         {id:3, content:<Images id={questionaires.id} postData={(e) => setData("data", e.target.value)}/>},
+        {id:4, content:<p>必須</p>},
         {id:5, content:<p>分岐</p>},
         ];
     

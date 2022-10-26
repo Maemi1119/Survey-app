@@ -5,15 +5,18 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 
-export default function SurveyPass({postData,passwords,addPasswords}) {
+export default function SurveyPass({postData,passwords,addPasswords,value,removePass,data}) {
     return(
-        <div id='password'>
-            <TextField label="password" variant="standard" onChange={postData}/>
-            {passwords.map((password) => {
+        <div>
+            <TextField label="password" variant="standard" onChange={(e) => postData(e, value)}/>
+            {passwords.map((password, index) => {
+                const setting_id = value + "_" + index;
                 return(
                     <Stack direction="row" spacing={0}>
-                        <TextField variant="standard" onChange={postData}/>
-                        <IconButton aria-label="delete"><DeleteIcon /></IconButton>
+                        <TextField value={data.passwords[setting_id]} variant="standard" onChange={(e) => postData(e, setting_id)}/>
+                        <IconButton aria-label="delete" onClick={(e) => removePass(e, setting_id)} >
+                            <DeleteIcon />
+                        </IconButton>
                     </Stack>
                 );
             })}
