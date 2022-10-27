@@ -29,7 +29,6 @@ Route::get('/', function(){
     return Inertia::render('Index');
 });
 
-
 Route::get('/set', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 
@@ -42,7 +41,7 @@ Route::put('/setting/', [QuestionaireController::class, 'update']);
 Route::get('/preview/{questionaire}', [QuestionaireController::class, 'preview'])->name('preview');
 
 Route::get('/list', [QuestionaireController::class,'lists']);
-
+Route::get('/list/{questionaire}', [QuestionaireController::class,'result']);
 //Route::get('/', function () {
 //    return Inertia::render('Welcome');
 //});

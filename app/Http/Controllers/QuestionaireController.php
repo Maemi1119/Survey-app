@@ -88,4 +88,7 @@ class QuestionaireController extends Controller
             ]);
     }
     
+    public function result(Questionaire $questionaire,Category $category,User $user, Answer $answer){
+        return Inertia::render('Result');
+    }
 }
