@@ -9,12 +9,20 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import dayjs from 'dayjs';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 export default function Account({auth}) {
     
@@ -30,11 +38,11 @@ export default function Account({auth}) {
     const sex = ['女','男','その他'];
     
     {/*カレンダー*/}
-    const [value, setValue] = React.useState<Date | null>(null);
-    const handleChange = (newValue = Date | null) => {
+    const [value, setValue] = useState(dayjs('2014-08-18T21:11:54'));
+    const handleChange = (newValue) => {
         setValue(newValue);
     };
-    
+      
     const jobs = ['学生','会社員・会社役員','公務員・団体職員','教員・学校職員','派遣社員・パート・アルバイト','専業主婦・主夫','その他'];
     
     const [pick, setPick] = React.useState('');
@@ -118,15 +126,14 @@ export default function Account({auth}) {
             
             <div>
                 <Title title='生年月日' />
-                <LocalizationProvider dateAdapter={AdapterDateFns} >
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Box sx={{ m: 2, width: '25ch' }}>
-                    <DatePicker
-                    label="Date"
-                    value={value}
-                    onChange={handleChange}
-                    inputFormat='yyyy/MM/dd'
-                    mask='____/__/__'
-                    renderInput={(params) => <TextField {...params} />}
+                    <DesktopDatePicker
+                      label="Date desktop"
+                      inputFormat="MM/DD/YYYY"
+                      value={value}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
                     />
                   </Box>
                 </LocalizationProvider>
@@ -151,7 +158,7 @@ export default function Account({auth}) {
                 </Box>
             </div>
             
-            {/*<div>
+            <div>
                 <Title title='パスワード' />
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
                     <Box
@@ -174,7 +181,7 @@ export default function Account({auth}) {
                             </InputAdornment>
                             }
                         />
-                        <Input
+                        <Input 
                             error
                             type={show.showPassword ? 'text' : 'password'}
                             label="確認"
@@ -193,7 +200,7 @@ export default function Account({auth}) {
                         />
                     </Box>
                 </FormControl>
-            </div>*/}
+            </div>
             
             <Button 
             variant="contained" 

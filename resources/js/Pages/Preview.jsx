@@ -7,6 +7,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import TextField from '@mui/material/TextField';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import IconButton from '@mui/material/IconButton';
+import {Inertia} from "@inertiajs/inertia";
 
 import Sliders from '@/Components/Question/Sliders';
 
@@ -14,6 +15,11 @@ export default function List({questionaires,questions,methods,choices,auth,error
     
     {/*ボタン*/}
     const [selected, setSelected] = React.useState(false);
+    
+    const OK = () =>{
+        Inertia.get('/setting/'+questionaires.id);
+    };
+    
     return(
         <>
             <Typography variant="h5">{questionaires.name}</Typography>
@@ -72,6 +78,7 @@ export default function List({questionaires,questions,methods,choices,auth,error
                     </div>
                 );
             })}
+            <Button></Button>
         </>
         );
 }
