@@ -6,6 +6,8 @@ use App\Models\Questionaire;
 use App\Models\Question;
 use App\Models\Method;
 use App\Models\Choice;
+use App\Models\User;
+use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Setting;
 use App\Models\Password;
@@ -17,8 +19,14 @@ use Inertia\Inertia;
 class QuestionaireController extends Controller
 {
     //
-    public function lists(Questionaire $lists){
-        return view('list')->with(['lists' => $lists->get()]);  
+    public function lists(Questionaire $questionaire,Category $category,User $user, Answer $answer){
+        return Inertia::render('List',[
+            'questionaires' =>$questionaire->where('user_id', 1)->get(),
+            //'categories' => $category->get()
+            //'answers' =>  $answer->where()
+            
+            ]);
+        //return view('list')->with(['questionaires' => $questionaire->get()]);  
     }
     
     public function setting(Category $category , Setting $setting){

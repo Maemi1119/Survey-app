@@ -26,11 +26,11 @@ use Inertia\Inertia;
 
 
 Route::get('/', function(){
-    return Inertia::render('Account');
+    return Inertia::render('Index');
 });
 
 
-//Route::get('/', [QuestionaireController::class,'setting']);
+Route::get('/set', [QuestionaireController::class,'setting']);
 Route::post('/setting', [QuestionaireController::class,'set']);
 
 Route::get('/createform/{questionaire}', [QuestionController::class, 'question'])->name('create');
@@ -41,8 +41,10 @@ Route::put('/setting/', [QuestionaireController::class, 'update']);
 
 Route::get('/preview/{questionaire}', [QuestionaireController::class, 'preview'])->name('preview');
 
+Route::get('/list', [QuestionaireController::class,'lists']);
+
 //Route::get('/', function () {
-//    return view('welcome');
+//    return Inertia::render('Welcome');
 //});
 
 Route::get('/dashboard', function () {

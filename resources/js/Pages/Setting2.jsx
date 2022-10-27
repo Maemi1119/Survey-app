@@ -114,7 +114,7 @@ export default function Setting2({ categories, settings, auth}){
     const submit = (e) => {
         e.preventDefault();
 
-        // post('/setting');
+        post('/setting');
     };
     
     return(
@@ -147,7 +147,12 @@ export default function Setting2({ categories, settings, auth}){
                     <TextField label="password" variant="standard" onChange={(e) => handlePasswords(e, 10)}/>
                 }
                 
-                <Button component="button" variant="contained" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">
+                <Button 
+                component="button" 
+                variant="contained" 
+                onClick={()=>submit()}
+                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" 
+                type="submit">
                     質問の作成
                 </Button>
             </form>
