@@ -33,7 +33,7 @@ export default function Setting2({ categories, settings, auth}){
         const name = data.name;
         const showCount = data.show_question_count;
         const login = data.is_logined;
-        if ((name.trim().length !== 0) && (showCount !== "") && (login !== "") && (setting !== "")){ 
+        if ((name.trim().length !== 0) && (showCount !== "") && (login !== "")){ 
             return true;
         }else{
             return false;
@@ -42,9 +42,9 @@ export default function Setting2({ categories, settings, auth}){
     
     const kindVali = (data) =>{
         const kind = data.kind;
-        const kPass = data.passwords.filter();
+        const pass = data.passwords;
         if(kind !== ""){
-            if(kPass){
+            if((){
                 
             }else{
                 return false;
@@ -56,9 +56,9 @@ export default function Setting2({ categories, settings, auth}){
     
     const settVali = (data) =>{
         const setting = data.setting;
-        const sPass = data.passwords.filter();
+        const pass = data.passwords;
         if(setting !== ""){
-            if(sPass){
+            if(pass){
                 
             }else{
                 return false;
