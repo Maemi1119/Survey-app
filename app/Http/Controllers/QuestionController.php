@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Questionaire;
 use App\Models\Method;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Choice;
 use App\Models\LimitedDescription;
@@ -50,4 +51,12 @@ class QuestionController extends Controller
         
     }
     
+    public function result(Questionaire $questionaire, Question $question, Method $method,Answer $answer){
+        return Inertia::render('Result',[
+            'questionaires'=>$questionaire,
+            'questions'=>with('answers')->$question->get(),
+            'methods'=>$method->get(),
+            'answers'=>$answer->where('question_id',$questionaire->id)->get()
+        ]);
+    }
 }
