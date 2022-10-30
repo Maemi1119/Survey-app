@@ -20,7 +20,7 @@ export default function SurveyPass({postData,passwords,addPasswords,value,remove
                     </Stack>
                 );
             })}
-            <Button variant="contained" onClick={() => addPasswords()}>+</Button>
+            <Button color="warning" variant="outlined" onClick={() => addPasswords()}>+</Button>
         </div>
     );
 }

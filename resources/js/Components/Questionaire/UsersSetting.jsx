@@ -3,11 +3,11 @@ import Title from '@/Components/Title';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function UsersSetting({title,smaller,bigger,settings,handleList}) {
+export default function UsersSetting({title,smaller,bigger,settings,handleList,required}) {
 
     return(
-        <div>
-            <Title title={title}/>
+        <div className="my-4">
+            <Title title={title} required={required} />
             {settings.map(setting=>{
                 return(
                     <div>

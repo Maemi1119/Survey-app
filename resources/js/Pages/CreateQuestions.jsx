@@ -1,5 +1,5 @@
 import React, { useState,useCallback } from 'react';
-import { useForm } from '@inertiajs/inertia-react';
+import Header from '@/Components/Header';
 import {Inertia} from "@inertiajs/inertia";
 import axios from 'axios';
 import Create from '@/Components/Create';
@@ -8,9 +8,8 @@ import Button from '@mui/material/Button';
 
 export default function CreateQuestions({ questionaires, methods, auth}) {
     
-    
     const submit = () => {
-        if(questions==0){
+        if(questions.length==0){
             return false;
         }
         let check = false;
@@ -31,17 +30,19 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         if(check){
             return false;
         }
-        axios.post(`/create/${questionaires.id}`, {questions:questions})
-        .then(response =>{
-        Inertia.get('/setting/'+questionaires.id);
-        })
-        .catch(error=>{console.log(error)});
+        axios
+            .post(`/create/${questionaires.id}`, {questions:questions})
+            .then(response =>{
+                Inertia.get('/setting/'+questionaires.id);
+            })
+            .catch(error=>{
+                console.log(error);
+            });
     };
-    
-    
+
     const [questions, setQuestions] = useState([]);
-    const addQuestions = useCallback((question) => {
-        console.log(question);
+    const [questionForms, setQuestionForms] = useState([]);
+    const addQuestions = useCallback((question,num) => {
         if(!validation(question)){
             return false;
         }
@@ -54,7 +55,9 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         }else if(question.method==5 && !imageVali(question)){
             return false;
         }
-        setQuestions((prevQuestions) => ([ ...prevQuestions, question ]));
+        
+        setQuestions(prevQuestions => ([ ...prevQuestions, question ]));
+        setQuestionForms((prevState) => [...prevState, ""]);
     });
     
     const validation = (question) => {
@@ -92,7 +95,6 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         const max = question.max_value;
         const left = question.bar_left;
         const right = question.bar_right;
-        console.log(question);
         
         if((min.trim().length!==0) && (max.trim().length!==0) && (left.trim().length!==0) && (right.trim().length!==0)){
             if(Number(min)<Number(max)){
@@ -114,30 +116,45 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         }
     };
     
+    const removeQuestion = (num) => {
+        let newQuestions = [...questions];
+        let newForms = [...questionForms];
+
+        newQuestions.splice(num, 1);
+        newForms.splice(-1);
+        
+        setQuestions(newQuestions);
+        setQuestionForms(newForms);
+    };
     
     return(
         <>
-        {/*<AuthenticatedLayout
-            auth={auth}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">creatform</h2>}
-        >*/}
+            <Header>アンケート作成</Header>
+            
+            <div className="w-4/5 mx-auto my-10">
         
-            <div>
-              <Title title='アンケート名'/>
-              <h8>{ questionaires.name }</h8>
+                <div>
+                    <Title title='アンケート名'/>
+                    <p className="p-2">{ questionaires.name }</p>
+                </div>
+                
+                <Title title='質問1'/>
+                <Create questionaires={questionaires} methods={methods} addQuestions={addQuestions} num={0} />
+                {questionForms.map((question,index) => {
+                    return(
+                        <>
+                            <Title title={`質問${index+2}`}>
+                                <Button onClick={() => removeQuestion(index+1)} size="small" className="float-right" color="error" variant="contained">削除</Button>
+                            </Title>
+                            <Create questionaires={questionaires} methods={methods} addQuestions={addQuestions} num={index+1}/>
+                        </>
+                    );
+                })}
+                
+                <div className="my-10">
+                    <Button color="warning" variant="contained" onClick={()=>submit()}>設定の確認</Button>
+                </div>
             </div>
-            
-            <Create questionaires={questionaires} methods={methods} addQuestions={addQuestions} />
-            {questions.map((question,index) => {
-                return(
-                    <Create questionaires={questionaires} methods={methods} addQuestions={addQuestions}/>
-                );
-            })}
-            
-            <Button component="button" variant="contained" onClick={()=>submit()} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-    >設定の確認</Button>
-    
-        {/*</AuthenticatedLayout>*/}
         </>
     );
 }

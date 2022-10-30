@@ -13,11 +13,8 @@ import Sliders from '@/Components/Question/Sliders';
 
 export default function List({questionaires,questions,methods,choices,auth,errors}){
     
-    {/*ボタン*/}
-    const [selected, setSelected] = React.useState(false);
-    
     const OK = () =>{
-        Inertia.get('/setting/'+questionaires.id);
+        Inertia.get('/share/'+questionaires.id);
     };
     
     return(
@@ -30,12 +27,10 @@ export default function List({questionaires,questions,methods,choices,auth,error
                         <Title title={question.question}/>
                         
                         {(question.method_id==1) && 
-                            question.choices.map(choice => {
+                            question.choices.map((choice,index) => {
                                 return(
                                     <ToggleButton
                                       value={choice.choice}
-                                      selected={selected}
-                                      onChange={() => {setSelected(!selected)}}
                                     >
                                     {choice.choice}
                                     </ToggleButton>
@@ -78,7 +73,7 @@ export default function List({questionaires,questions,methods,choices,auth,error
                     </div>
                 );
             })}
-            <Button></Button>
+            <Button onClick={()=>OK()}>OK</Button>
         </>
         );
 }

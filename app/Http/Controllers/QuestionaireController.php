@@ -88,17 +88,17 @@ class QuestionaireController extends Controller
             ]);
     }
     
-    public function result(Questionaire $questionaire, Question $question, User $user, Answer $answer){
+    public function result(Questionaire $questionaire, Question $question, Category $category, User $user, Answer $answer){
         return Inertia::render('Result',[
-                'questionaires' => $questionaire->where('id', $questionaire->id)->get,
+                'questionaires' => $questionaire->where('id', $questionaire->id)->get(),
                 'questions' => $question->with('answers')->where('questionaire_id', $questionaire->id)->get(),
-                'categories' => $categories->get(),
+                'categories' => $category->get(),
                 'users' => $user->get(),
                 'answers' => $answer->where('question_id', $questionaire->id)->get()
             ]);
     }
     
     public function share(Questionaire $questionaire){
-        return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->get]);
+        return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->first()]);
     }
 }
