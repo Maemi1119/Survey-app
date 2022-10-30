@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { Head, Link} from '@inertiajs/inertia-react';
 
 export default function Index(){
     
@@ -14,7 +15,7 @@ export default function Index(){
                     <img src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
                     <img src="assets/images/computer_laptop_angle2.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
                 </Stack>
-                <p>アンケートの作成方法はこちらをご参照ください</p>
+                <p>アンケートの作成方法は<Link href='/Instructions'>こちら</Link>をご参照ください</p>
                 <Button variant="contained" href='/set'>アンケートを作る</Button>
             </div>
             
@@ -22,7 +23,7 @@ export default function Index(){
                 <Typography variant="h4">アンケート結果の確認</Typography>
                 <p>下のボタンからアンケート一覧を確認することができます。</p>
                 <img src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
-                <p>アンケート結果の確認方法はこちらをご参照ください。</p>
+                <p>アンケート結果の確認方法は<Link href='/Instructions'>こちら</Link>をご参照ください。</p>
                 <Button variant="contained" href='/list'>アンケートの表示</Button>
             </div>
             

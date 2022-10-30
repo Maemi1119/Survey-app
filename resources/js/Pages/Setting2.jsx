@@ -28,7 +28,6 @@ export default function Setting2({ categories, settings, auth}){
         setPasswords((prevPasswords) => ([ ...prevPasswords, "" ]));
     });
 
-{/*
     const validation = (data) => {
         const name = data.name;
         const showCount = data.show_question_count;
@@ -44,32 +43,45 @@ export default function Setting2({ categories, settings, auth}){
         const kind = data.kind;
         const pass = data.passwords;
         if(kind !== ""){
-            if((){
-                
+            if(pass.setting_id == 2){
+                if(pass.password.trim().length !== 0){
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
-                return false;
+                return true;
             }
         }else{
             return false;
         }
-    }
+    };
     
     const settVali = (data) =>{
         const setting = data.setting;
         const pass = data.passwords;
         if(setting !== ""){
-            if(pass){
-                
+            if((pass.setting_id !== 6) && (pass.setting_id !==10)){
+                return true;
             }else{
-                return false;
+                if(pass.password.trim().length !== 0){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }else{
             return false;
         }
-    }
-    */}
+    };
+    
+    const passVali = (data) =>{
+        const pass = data.passwords.filter(setting_id => setting_id==2 && setting_id==6 && setting_id==10);
+        setData('passwords', pass);
+    };
+    
     console.log(data);
-    console.log(passwords)
+    console.log(passwords);
     
     // パスワード以外の入力関連
     const handleChange = useCallback((e) => {
@@ -112,9 +124,20 @@ export default function Setting2({ categories, settings, auth}){
     });
     
     const submit = (e) => {
-        e.preventDefault();
-
-        post('/setting');
+        let check = false;
+        if(!validation(data)){
+            check = true;
+        }
+        if(!kindVali(data)){
+            check = true;
+        }
+        if(!settVali(data)){
+            check = true;
+        }
+        if(check){return false}
+            passVali(data);
+            e.preventDefault();
+            post('/setting');
     };
     
     return(

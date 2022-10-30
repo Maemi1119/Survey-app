@@ -6,6 +6,7 @@ use App\Http\Controllers\QuestionaireController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\AnswerController;
 use Inertia\Inertia;
 
 /*
@@ -48,9 +49,12 @@ Route::get('/preview/{questionaire}', [QuestionaireController::class, 'preview']
 Route::get('/list', [QuestionaireController::class,'lists']);
 Route::get('/list/{questionaire}', [QuestionaireController::class,'result']);
 
+{/*アンケート共有画面*/}
+Route::get('/share/{questionaire}', [QuestionaireController::class,'share']);
+
 {/*アンケート回答画面*/}
-Route::get('/answer/{questionaire}', [QuestionaireController::class,'answer']);
-Route::post('/postanswer/{questionaire}', [QuestionaireController::class,'postAnswer']);
+Route::get('/answer/{questionaire}', [AnswerController::class,'answer']);
+Route::post('/postanswer/{questionaire}', [AnswerController::class,'postAnswer']);
 
 //Route::get('/', function () {
 //    return Inertia::render('Welcome');

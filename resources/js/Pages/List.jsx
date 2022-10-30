@@ -19,7 +19,7 @@ export default function List({questionaires,questions,methods,choices,auth,error
                         <p>{list.users_id}</p>
                         <p>{list.created_at}</p>
                         <p>{list.updated_at}</p>
-                        <Button variant="outlined">共有</Button>
+                        <Button variant="outlined" href={'/share/'+questionaires.id}>共有</Button>
                         <Button variant="contained"
                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                             href={'/list/'+questionaires.id}

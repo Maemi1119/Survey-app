@@ -84,11 +84,21 @@ class QuestionaireController extends Controller
             'questionaires' => $questionaire,
             'questions' => $question->with('choices')->where('questionaire_id', $questionaire->id)->get(),
             'methods' => $method->get(),
-            'choices' => $choice->where('question_id',$questionaire->id)->get()
+            'choices' => $choice->where('question_id', $questionaire->id)->get()
             ]);
     }
     
-    public function result(Questionaire $questionaire,Category $category,User $user, Answer $answer){
-        return Inertia::render('Result');
+    public function result(Questionaire $questionaire, Question $question, User $user, Answer $answer){
+        return Inertia::render('Result',[
+                'questionaires' => $questionaire->where('id', $questionaire->id)->get,
+                'questions' => $question->with('answers')->where('questionaire_id', $questionaire->id)->get(),
+                'categories' => $categories->get(),
+                'users' => $user->get(),
+                'answers' => $answer->where('question_id', $questionaire->id)->get()
+            ]);
+    }
+    
+    public function share(Questionaire $questionaire){
+        return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->get]);
     }
 }
