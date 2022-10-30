@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useCallback } from 'react';
 import { useForm } from '@inertiajs/inertia-react';
 import Title from '@/Components/Title';
 import Typography from '@mui/material/Typography';
@@ -12,10 +12,22 @@ import {Inertia} from "@inertiajs/inertia";
 
 import Sliders from '@/Components/Question/Sliders';
 
-export default function Answer({questions,methods,choices,auth}){
+export default function Answer({questions,methods,choices,limiteds,auth}){
     
     {/*ボタン*/}
     const [selected, setSelected] = React.useState(false);
+    const selectChoice = (e) => {
+        setSelected(!selected);
+        setData('answer', e.target.value);
+    };
+    
+    const enterText = (e) => {
+        setData('answer', e.target.value);
+    }
+    
+    const limited = useCallback((question) => {
+        
+    });
     
     const { data, setData, post, processing, errors, reset } = useForm({
         answer:''
@@ -30,7 +42,7 @@ export default function Answer({questions,methods,choices,auth}){
                         <ToggleButton
                           value={choice.choice}
                           selected={selected}
-                          onChange={() => {setSelected(!selected)}}
+                          onChange={selectChoice}
                         >
                         {choice.choice}
                         </ToggleButton>
@@ -39,11 +51,11 @@ export default function Answer({questions,methods,choices,auth}){
             }
             
             {(questions.method_id==2) && 
-                <TextField variant="standard"/>
+                <TextField variant="standard" onChange={enterText}/>
             }
             
             {(questions.method_id==3) && 
-                <TextField variant="standard"/>
+                <TextField variant="standard" onChange={enterText}/>
             }
             
             {(questions.method_id==4) && 

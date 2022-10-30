@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Answer;
 use App\Models\Questionaire;
 use App\Models\Question;
+use App\Models\LimitedDescription;
+use Inertia\Inertia;
 
 class AnswerController extends Controller
 {
     //
-    public function answer(Questionaire $questionaire, Question $question, Answer $answer){
+    public function answer(Questionaire $questionaire, Question $question, Answer $answer, LimitedDescription $limited){
         return Inertia::render('AnswerQuestion',[
             'questionaires'=>$questionaire, 
-            'questions'=>with('answer')->$question->get(),
-            'answer'=>$answer->where('question_id', $questionaire->id)->get()
+            'questions'=>$question->with('answer','limiteds')->get(),
+            'answer'=>$answer->where('question_id', $questionaire->id)->get(),
+            'limiteds'=>$limited->where('question_id', $questionaire->id)->get()
         ]);
     }
     
