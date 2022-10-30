@@ -44,8 +44,6 @@ class QuestionaireController extends Controller
             'is_logined'=>$request['is_logined'],
         ]);
         
-        //$setting->settings()->attach($request['settings_radio']);
-        
        foreach($request['setting'] as $value){
            $setting->settings()->attach($value);
        }
