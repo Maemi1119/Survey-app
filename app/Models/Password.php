@@ -13,9 +13,14 @@ class Password extends Model
     return $this->belongsTo(Setting::class);
     }
     
+    public function questionaire() {
+    return $this->belongsTo(Questionaire::class);
+    }
+    
     protected $fillable = [
     'password',
     'setting_id',
+    'questionaire_id'
     ];
     
 }

@@ -13,6 +13,13 @@ use Inertia\Inertia;
 class AnswerController extends Controller
 {
     //
+    public function beforeAnswer(Questionaire $questionaire, Password $password){
+        return Inertia::render('BeforeQuestion',[
+            'questionaires' => $questionaire, 
+            'passwords' => $password->where('questionaire_id', $questionaire->id)->where('setting_id', 2)->get()
+        ]);
+    }
+    
     public function answer(Questionaire $questionaire, Question $question, Choice $choice, Answer $answer, LimitedDescription $limited){
         return Inertia::render('AnswerQuestion',[
             'questionaires'=>$questionaire, 

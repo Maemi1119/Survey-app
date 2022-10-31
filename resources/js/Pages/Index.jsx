@@ -5,7 +5,8 @@ import Header from '@/Components/Header';
 import Grid from '@mui/material/Grid';
 import { Link } from '@inertiajs/inertia-react';
 
-export default function Index(){
+export default function Index(props){
+    console.log(props);
     return(
         <>
             <Header>SurveyApp</Header>
@@ -48,9 +49,18 @@ export default function Index(){
             <Grid container className="mt-6">
                 <Grid xs={2} item className="pl-10">
                     <Stack spacing={2}>
-                        <Link href="#">アカウント情報</Link>
-                        <Link href="#">アカウント管理</Link>
-                        {/*<Link href={route('logout')} method="post">ログアウト</Link>*/}
+                        {props.auth?.user == null ? (
+                            <>
+                                <Link href="#">アカウント情報</Link>
+                                <Link href="#">アカウント管理</Link>
+                                <Link href={route('logout')} method="post">ログアウト</Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link href={route('login')}>ログイン</Link>
+                                <Link href={route('register')}>アカウント作成</Link>
+                            </>
+                        )}
                     </Stack>
                 </Grid>
                 <Grid xs={2} item>
