@@ -1,8 +1,13 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
 
-export default function Title({title}) {
+export default function Title({title,required,children}) {
     return(
-        <Typography variant="h6">{title}</Typography>
+        <h1 className="text-xl font-bold mt-6">
+            {title}
+            {required &&
+                <span className="text-red-500 pl-4">※ この項目の入力は必須です</span>
+            }
+            {children}
+        </h1>
     );
-};
+}

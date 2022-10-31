@@ -1,10 +1,5 @@
-import React, { useState,useEffect } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import Answer from '@/Components/Answer';
 import Typography from '@mui/material/Typography';
 import {Inertia} from "@inertiajs/inertia";
@@ -15,7 +10,7 @@ export default function AnswerQuestion({questionaires,questions,methods,choices,
     const submit = () => {
         axios.post(`/postanswer/${questionaires.id}`, {answers:answers})
         .then(response =>{
-        Inertia.get('/');
+        Inertia.get('/endanswer');
         })
         .catch(error=>{console.log(error)});
     };

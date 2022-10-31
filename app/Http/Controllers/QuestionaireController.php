@@ -48,6 +48,7 @@ class QuestionaireController extends Controller
        
         foreach($request['passwords'] as $password){
             Password::create([
+               'questionaire_id'=>$setting->id,
                'setting_id'=>$password['setting_id'],
                'password'=>$password['password']
             ]);
@@ -62,7 +63,7 @@ class QuestionaireController extends Controller
             'categories' => $category->get(), 
             'passwords' => $password->get(), 
             'settings' => $questionaire->settings()->get(), 
-            'sett'=> $settings->get()
+            'sett' => $settings->get()
             ]);
     }
     

@@ -11,7 +11,9 @@ export default function Share({questionaires,auth,errors}){
     
     return(
         <>
-            <Typography variant="h4">{questionaires.name}</Typography>
+            <p>今回あなたが作成したアンケートのリンクはこちらです</p>
+            <p>{'https://stark-crag-30845.herokuapp.com/answer/'+questionaires.id}</p>
+            
             <Button href='/'>home</Button>
         </>
         );

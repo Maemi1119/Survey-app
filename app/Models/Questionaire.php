@@ -33,6 +33,10 @@ class Questionaire extends Model
     return $this->belongsToMany(Choice::class);  
     }
     
+    public function passwords(){
+    return $this->hasMany(Password::class);
+    }
+    
     protected $fillable = [
     'user_id',
     'name',
