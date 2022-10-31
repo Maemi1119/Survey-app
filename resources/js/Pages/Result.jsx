@@ -5,26 +5,27 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 export default function Result({questionaires,questions,categories,users,auth,errors}){
-    
+
     return(
         <>
-            <Typography variant="h4">{questionaires.name}</Typography>
+            <Typography variant="h1">{questionaires.name}</Typography>
             {questions.map(question => {
                 return(
                     <>
                         <Typography variant="h2">{question.question}</Typography>
                         {question.answers.map(answer => {
                             return(
-                                <Typography variant="h1">{answer}</Typography>
+                                <Typography variant="h4">{answer.answer}</Typography>
                             );
                         })}
                     </>
                 );
             })}
             
-            <Button variant="contained">戻る</Button>
+            <Button variant="contained" href='/'>戻る</Button>
         </>
         );
 }

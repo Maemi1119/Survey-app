@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Title from '@/Components/Title';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -6,18 +6,16 @@ import Stack from '@mui/material/Stack';
 import ToggleButton from '@mui/material/ToggleButton';
 import TextField from '@mui/material/TextField';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import IconButton from '@mui/material/IconButton';
 import {Inertia} from "@inertiajs/inertia";
 
 import Sliders from '@/Components/Question/Sliders';
 
 export default function List({questionaires,questions,methods,choices,auth,errors}){
     
-    {/*ボタン*/}
-    const [selected, setSelected] = React.useState(false);
+
     
     const OK = () =>{
-        Inertia.get('/setting/'+questionaires.id);
+        Inertia.get('/share/'+questionaires.id);
     };
     
     return(
@@ -34,8 +32,6 @@ export default function List({questionaires,questions,methods,choices,auth,error
                                 return(
                                     <ToggleButton
                                       value={choice.choice}
-                                      selected={selected}
-                                      onChange={() => {setSelected(!selected)}}
                                     >
                                     {choice.choice}
                                     </ToggleButton>
@@ -60,25 +56,16 @@ export default function List({questionaires,questions,methods,choices,auth,error
                         }
                         
                         {(question.method_id==5) && 
-                            Array(Number(question.image)).fill(0).map((val) => {
-                            return(
-                                <Stack direction="row" alignItems="center" spacing={0}>
-                                    <Button variant="contained" component="label">
-                                    Upload
-                                        <input hidden accept="image/*" multiple type="file" />
-                                    </Button>
-                                    <IconButton color="primary" aria-label="upload picture" component="label">
-                                        <input hidden accept="image/*" type="file" />
-                                        <PhotoCamera />
-                                    </IconButton>
-                                </Stack>)
-                            })
+                                <Button variant="contained" component="label">
+                                Upload
+                                    <input hidden accept="image/*" multiple type="file" endIcon={<PhotoCamera />}/>
+                                </Button>
                         }
                         
                     </div>
                 );
             })}
-            <Button></Button>
+            <Button variant='outlined' onClick={OK}>OK</Button>
         </>
         );
 }

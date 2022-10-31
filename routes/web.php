@@ -21,11 +21,6 @@ use Inertia\Inertia;
 */
 
 
-/*Route::get('/', function () {
-    return view('create');
-}); */
-
-
 Route::get('/', function(){
     return Inertia::render('Index');
 });
@@ -55,10 +50,6 @@ Route::get('/share/{questionaire}', [QuestionaireController::class,'share']);
 {/*アンケート回答画面*/}
 Route::get('/answer/{questionaire}', [AnswerController::class,'answer']);
 Route::post('/postanswer/{questionaire}', [AnswerController::class,'postAnswer']);
-
-//Route::get('/', function () {
-//    return Inertia::render('Welcome');
-//});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

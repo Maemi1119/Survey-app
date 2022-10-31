@@ -17,7 +17,6 @@ class QuestionController extends Controller
     //
     public function question(Questionaire $questionaire , Method $method){
         return Inertia::render('CreateQuestions',['questionaires'=>$questionaire, 'methods'=>$method->get()]);
-        //return view('create')->with(['questionaire'=>$questionaire, 'methods'=>$method->get()]);
     }
     
     public function create(Request $request, Questionaire $questionaire, Method $method){

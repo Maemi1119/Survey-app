@@ -1,38 +1,67 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { Head, Link} from '@inertiajs/inertia-react';
+import Header from '@/Components/Header';
+import Grid from '@mui/material/Grid';
+import { Link } from '@inertiajs/inertia-react';
 
 export default function Index(){
-    
     return(
         <>
-            <div>
-                <Typography variant="h4">アンケート作成</Typography>
-                <p>下のボタンからアンケートを作成することができます。</p>
-                <Stack>
-                    <img src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
-                    <img src="assets/images/computer_laptop_angle2.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
-                </Stack>
-                <p>アンケートの作成方法は<Link href='/Instructions'>こちら</Link>をご参照ください</p>
-                <Button variant="contained" href='/set'>アンケートを作る</Button>
+            <Header>SurveyApp</Header>
+            <div className="border-b-4 mt-6">
+                <div className="text-center w-4/5 mx-auto">
+                    <h4 className="font-bold text-2xl mt-4">アンケート作成</h4>
+                    <p>下のボタンからアンケートを作成することができます。</p>
+                    <Stack direction="row">
+                        <img className="block mx-auto" width="300" height="240" src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
+                        <img className="block mx-auto" width="300" height="240" src="assets/images/computer_laptop_angle2.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
+                    </Stack>
+                    <p className="mt-4">アンケートの作成方法はこちらをご参照ください</p>
+                    <div className="text-center my-6">
+                        <Button color="warning" variant="contained" href='/set'>アンケートを作る</Button>
+                    </div>
+                </div>
             </div>
             
-            <div>
-                <Typography variant="h4">アンケート結果の確認</Typography>
-                <p>下のボタンからアンケート一覧を確認することができます。</p>
-                <img src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
-                <p>アンケート結果の確認方法は<Link href='/Instructions'>こちら</Link>をご参照ください。</p>
-                <Button variant="contained" href='/list'>アンケートの表示</Button>
-            </div>
+            <Grid className="border-b-4 w-4/5 mx-auto" container>
+                <Grid xs={6} item className="text-center">
+                    <h4 className="font-bold text-2xl mt-4">アンケート結果の確認</h4>
+                    <p>下のボタンからアンケート一覧を確認することができます。</p>
+                    <img className="block mx-auto" width="300" height="240" src="assets/images/computer_laptop_angle1.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
+                    <p className="mt-4">アンケート結果の確認方法はこちらをご参照ください。</p>
+                    <div className="mt-6">
+                        <Button color="warning" variant="contained" href='/list'>アンケートの表示</Button>
+                    </div>
+                </Grid>
+                <Grid xs={6} item className="text-center">
+                    <h4 className="font-bold text-2xl mt-4">アンケート結果の分析</h4>
+                    <p>下のボタンからアンケートを作成することができます。</p>
+                    <img className="block mx-auto" width="300" height="240" src="assets/images/computer_laptop_angle2.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
+                    <p className="mt-4">結果分析機能は近々実装予定です。 </p>
+                    <div className="my-6">
+                        <Button color="warning" variant="contained" disabled>アンケートの分析</Button>
+                    </div>
+                </Grid>
+            </Grid>
             
-            <div>
-                <Typography variant="h4">アンケート結果の分析</Typography>
-                <img src="assets/images/computer_laptop_angle2.png" alt="アンケートツールの画像の説明" title="アンケートツールの画像"></img>
-                <p>結果分析機能は近々実装予定です。 </p>
-                 <Button variant="contained" disabled>アンケートの分析</Button>
-            </div>
+            <Grid container className="mt-6">
+                <Grid xs={2} item className="pl-10">
+                    <Stack spacing={2}>
+                        <Link href="#">アカウント情報</Link>
+                        <Link href="#">アカウント管理</Link>
+                        {/*<Link href={route('logout')} method="post">ログアウト</Link>*/}
+                    </Stack>
+                </Grid>
+                <Grid xs={2} item>
+                    <Stack spacing={2}>
+                        <Link href="#">アンケート作成ツール</Link>
+                        <Link href="#">アンケート結果表示</Link>
+                        <Link href="#">アンケート結果分析</Link>
+                        <Link href="#">各機能のご利用方法</Link>
+                    </Stack>
+                </Grid>
+            </Grid>
         </>
-        );
+    );
 }

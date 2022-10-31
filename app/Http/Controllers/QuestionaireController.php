@@ -26,12 +26,10 @@ class QuestionaireController extends Controller
             //'answers' =>  $answer->where()
             
             ]);
-        //return view('list')->with(['questionaires' => $questionaire->get()]);  
     }
     
     public function setting(Category $category , Setting $setting){
         return Inertia::render('Setting2',['categories' => $category->get(), 'settings' => $setting->get()]);
-        //return view('setting')->with(['categories' => $category->get(), 'settings' => $setting->get()]);
     }
     
     public function set(Request $request){
@@ -47,7 +45,7 @@ class QuestionaireController extends Controller
        foreach($request['setting'] as $value){
            $setting->settings()->attach($value);
        }
-        //dd($request['passwords']['password']);
+       
         foreach($request['passwords'] as $password){
             Password::create([
                'setting_id'=>$password['setting_id'],
@@ -66,7 +64,6 @@ class QuestionaireController extends Controller
             'settings' => $questionaire->settings()->get(), 
             'sett'=> $settings->get()
             ]);
-        //return view('confirmation')->with(['questionaires' => $questionaire, 'categories' => $category->get(), 'passwords' => $password->where('setting_id',1)->first()]);
     }
     
     public function update(PostRequest $request, Questionaire $post){
@@ -86,17 +83,17 @@ class QuestionaireController extends Controller
             ]);
     }
     
-    public function result(Questionaire $questionaire, Question $question, User $user, Answer $answer){
+    public function result(Questionaire $questionaire, Question $question, Category $category, User $user, Answer $answer){
         return Inertia::render('Result',[
-                'questionaires' => $questionaire->where('id', $questionaire->id)->get,
+                'questionaires' => $questionaire->where('id', $questionaire->id)->first(),
                 'questions' => $question->with('answers')->where('questionaire_id', $questionaire->id)->get(),
-                'categories' => $categories->get(),
+                'categories' => $category->get(),
                 'users' => $user->get(),
                 'answers' => $answer->where('question_id', $questionaire->id)->get()
             ]);
     }
     
     public function share(Questionaire $questionaire){
-        return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->get]);
+        return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->first()]);
     }
 }
