@@ -14,17 +14,17 @@ use App\Models\Password;
 use Illuminate\Http\Request;
 use Datetime;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Auth;
 
 class QuestionaireController extends Controller
 {
     //
     public function lists(Questionaire $questionaire,Category $category,User $user, Answer $answer){
+        $user = Auth::id();
         return Inertia::render('List',[
-            'questionaires' =>$questionaire->where('user_id', 1)->get(),
+            'questionaires' =>$questionaire->where('user_id', $user)->get(),
             //'categories' => $category->get()
             //'answers' =>  $answer->where()
-            
             ]);
     }
     
@@ -33,8 +33,9 @@ class QuestionaireController extends Controller
     }
     
     public function set(Request $request){
+        $user = Auth::id();
         $setting = Questionaire::create([
-            'user_id'=>1,
+            'user_id'=>$user,
             'name'=>$request['name'],
             'overview'=>$request['overview'],
             'category_id'=>NULL,
@@ -47,9 +48,10 @@ class QuestionaireController extends Controller
        }
        
         foreach($request['passwords'] as $password){
+            $set = substr($password['setting_id'], 0, 1);
             Password::create([
                'questionaire_id'=>$setting->id,
-               'setting_id'=>$password['setting_id'],
+               'setting_id'=>$set,
                'password'=>$password['password']
             ]);
         }

@@ -20,6 +20,7 @@ export default function BeforeAnswer({questionaires,settings,auth,errors}){
     const submit = () =>{
         post('/checkpass/'+questionaires.id);
     };
+    
     return(
         <>
             <Header>アンケート回答</Header>
@@ -27,7 +28,7 @@ export default function BeforeAnswer({questionaires,settings,auth,errors}){
             {settings.includes(1) ? (
                 <>
                     <p>アンケートへの回答を始めますか？</p>
-                    <Button color="warning" variant="contained" href={'/startanswer/'+questionaires.id}>始める</Button>
+                    <Button color="warning" variant="contained" onClick={submit}>始める</Button>
                 </>
             ) : (
                 <>

@@ -12,29 +12,39 @@ use App\Models\Image;
 use App\Models\Settings;
 use App\Models\LimitedDescription;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Cloudinary;
 
 class AnswerController extends Controller
 {
     //
     public function beforeAnswer(Questionaire $questionaire, Password $password){
+        $settingId = $questionaire->settings()->get(['id']);
+        $setNumber = [];
+        foreach($settingId as $setting){
+            array_push($setNumber, $setting->id);
+        }
         return Inertia::render('BeforeAnswer',[
             'questionaires' => $questionaire, 
-            'settings' => $questionaire->settings()->get()
+            'settings' => $setNumber
         ]);
     }
     
     public function checkPass(Request $request, Password $password, Questionaire $questionaire){
         $pass = $password->where('questionaire_id', $questionaire->id)->get();
-        if($pass->has('setting_id', 2)){
-            $correctPasses = $pass->where('setting_id', 2)->get();
+        $passId = [];
+        foreach($pass as $ps){
+            array_push($passId, $ps->setting_id);
+        }
+        if(in_array(2, $passId)){
+            $correctPasses = $pass->where('setting_id', 2);
             foreach($correctPasses as $correctPass){
                 if($correctPass->password == $request['password']){
                     session(['check' => true]);
                     return redirect('/startanswer/'. $questionaire->id);
-                }else{
-                    return redirect()->back()->withErrors(['missing' => 'パスワードが間違っています']);
                 }
             }
+            return redirect()->back()->withErrors(['missing' => 'パスワードが間違っています']);
         }
         session(['check' => true]);
         return redirect('/startanswer/'. $questionaire->id);
@@ -56,24 +66,24 @@ class AnswerController extends Controller
     
     public function postAnswer(Request $request, Questionaire $questionaire, Question $question, Answer $answer){
         session()->forget('check');
+        $user = Auth::id();
+        dd($request['image']);
         foreach($request['answers'] as $answer){
             Answer::create([
                 'answer'=>$answer['answer'],
                 'question_id'=>$answer['id'],
-                'user_id'=>1
+                'user_id'=>$user
             ]);
-            
-            {/*
-            foreach($answer['images'] as $image){
-                Image::create([
-                    'image'=>$image,
-                    'question_id'=>$answer['id'],
-                    'user_id'=>1
-                ]);
-            }
-            */}
         } 
-        
+        dd($request['image']);
+        foreach($request['image'] as $image){
+            $image_url = Cloudinary::upload($image->file('images')->getRealPath())->getSecurePath();
+            Image::create([
+                'image'=>$image_url,
+                'answer_id'=>$answer['id'],
+                'user_id'=>$user
+            ]);
+        }
     }
     
 }

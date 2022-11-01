@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->constrained('questions');
+            $table->foreignId('answer_id')->constrained('answers');
             $table->text('image');
             $table->timestamps();
             $table->softDeletes();

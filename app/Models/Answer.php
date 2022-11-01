@@ -17,6 +17,10 @@ class Answer extends Model
     return $this->belongsTo(Question::class);
     }
     
+    public function images(){
+    return $this->hasMany(Image::class);
+    }
+    
     protected $fillable = [
     'answer',
     'question_id',

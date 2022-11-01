@@ -7,15 +7,21 @@ import axios from 'axios';
 
 export default function AnswerQuestion({questionaires,questions,methods,choices,auth,errors}){
     
+    const [answers,setAnswers] = useState([]);
+    
     const submit = () => {
-        axios.post(`/postanswer/${questionaires.id}`, {answers:answers})
+        const images = answers.filter((answer) => typeof(answer.answer) === 'object');
+        const data = new FormData();
+		images.map((image) => {
+			data.append("images[]", image[0]);
+		});
+		const answerExe = answers.filter((answer) => typeof(answer.answer) !== 'object');
+        axios.post(`/postanswer/${questionaires.id}`, {answers:answerExe, image:images})
         .then(response =>{
         Inertia.get('/endanswer');
         })
         .catch(error=>{console.log(error)});
     };
-    
-    const [answers,setAnswers] = useState([]);
     
     return(
         <>

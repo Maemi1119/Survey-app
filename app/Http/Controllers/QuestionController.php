@@ -11,6 +11,7 @@ use App\Models\LimitedDescription;
 use Illuminate\Http\Request;
 use Datetime;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {

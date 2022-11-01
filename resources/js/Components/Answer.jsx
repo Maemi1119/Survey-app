@@ -107,7 +107,7 @@ export default function Answer({questions,methods,choices,limiteds,answers,setAn
 		if(e.target.files.length>questions.image){
 		    return;
 		}
-		setData('image', [...data.image, ...e.target.files]);
+		setData('answers', [...data.answer, ...e.target.files]);
 		let check = false;
       if(answers.length>0){
           answers.forEach((answer)=>{
@@ -137,7 +137,7 @@ export default function Answer({questions,methods,choices,limiteds,answers,setAn
     });
     
     {/*スライダー*/}
-    const [value, setValue] = React.useState(50);
+    const [value, setValue] = useState(50);
 
     const handleSliderChange = useCallback((event, newValue) => {
       setValue(newValue);

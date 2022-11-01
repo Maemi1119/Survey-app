@@ -9,7 +9,12 @@ class Image extends Model
 {
     use HasFactory;
     
-    public function question(){
-    return $this->belongsTo(Question::class);
+    public function answer(){
+    return $this->belongsTo(Answer::class);
     }
+    
+    protected $fillable = [
+    'answer_id',
+    'image',
+    ];
 }

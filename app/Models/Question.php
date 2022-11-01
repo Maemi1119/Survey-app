@@ -21,10 +21,6 @@ class Question extends Model
     return $this->hasOne(Method::class);
     }
     
-    public function images(){
-    return $this->hasMany(Image::class);
-    }
-    
     public function limitedDescriptions(){
     return $this->hasMany(LimitedDescription::class);
     }

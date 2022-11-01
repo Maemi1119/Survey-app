@@ -5,25 +5,7 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Input from '@mui/material/Input';
 
-export default function Sliders() {
-    
-    const [value, setValue] = React.useState(50);
-
-    const handleSliderChange = (event, newValue) => {
-      setValue(newValue);
-    };
-    
-    const handleInputChange = (event) => {
-      setValue(event.target.value === '' ? '' : Number(event.target.value));
-    };
-    
-    const handleBlur = () => {
-      if (value < 0) {
-        setValue(0);
-      } else if (value > 100) {
-        setValue(100);
-      }
-    };
+export default function Sliders({handleSliderChange,handleInputChange,handleBlur,value}) {
     
     return(
      <Box sx={{ width: 250 }}>

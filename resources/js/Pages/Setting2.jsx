@@ -11,7 +11,6 @@ import TextField from '@mui/material/TextField';
 import Header from '@/Components//Header';
 
 export default function Setting2({ categories, settings, auth}){
-    
     const { data, setData, post } = useForm({
         name: '',
         overview: '',
@@ -22,7 +21,7 @@ export default function Setting2({ categories, settings, auth}){
         setting:[],
         provisional: 0,
     });
-    
+    console.log(data);
     // Password
     const [passwords, setPasswords] = useState([]);
     const addPasswords = useCallback(() => {
