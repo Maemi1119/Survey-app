@@ -107,7 +107,7 @@ export default function Answer({questions,methods,choices,limiteds,answers,setAn
 		if(e.target.files.length>questions.image){
 		    return;
 		}
-		setData('answer', [...data.answer, ...e.target.files]);
+		setData('image', [...data.image, ...e.target.files]);
 		let check = false;
       if(answers.length>0){
           answers.forEach((answer)=>{
@@ -187,7 +187,8 @@ export default function Answer({questions,methods,choices,limiteds,answers,setAn
     });
     
     const { data, setData, post, processing, errors, reset } = useForm({
-        answer:[]
+        answer:[],
+        image:[]
     });
     
     return(

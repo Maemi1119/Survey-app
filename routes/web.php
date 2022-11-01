@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 {/*アンケート回答画面*/}
 Route::get('/answer/{questionaire}', [AnswerController::class,'beforeAnswer']);
+Route::post('/checkpass/{questionaire}', [AnswerController::class,'checkPass']);
 Route::get('/startanswer/{questionaire}', [AnswerController::class,'answer']);
 Route::post('/postanswer/{questionaire}', [AnswerController::class,'postAnswer']);
 Route::inertia('/endanswer', 'EndAnswer');

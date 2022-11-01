@@ -9,6 +9,13 @@ import Button from '@mui/material/Button';
 export default function CreateQuestions({ questionaires, methods, auth}) {
     
     const submit = () => {
+        console.log(window.localStorage.getItem('addList')=='false');
+        if(window.localStorage.getItem('addList')=='false'){
+            const checkAddList = window.confirm('最後の質問が保存されていませんが送信してよろしいですか？');
+            if (!checkAddList){
+                return false;
+            }
+        }
         if(questions.length==0){
             return false;
         }
@@ -55,7 +62,7 @@ export default function CreateQuestions({ questionaires, methods, auth}) {
         }else if(question.method==5 && !imageVali(question)){
             return false;
         }
-        
+        window.localStorage.setItem('addList', true);
         setQuestions(prevQuestions => ([ ...prevQuestions, question ]));
         setQuestionForms((prevState) => [...prevState, ""]);
     });

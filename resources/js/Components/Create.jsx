@@ -100,11 +100,10 @@ export default function Create({ questionaires, methods, auth, addQuestions, num
         const settingLimited = data.limited.filter((value) => !( value == e.target.value ));
         setData("limited", settingLimited);
     };
-    
     return (
         <>
             <div className="border-2 p-4">
-                <Questions title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => setData("question", e.target.value)}/>
+                <Questions title='【質問】' label={'質問文'} placeholder={'好きな食べ物は何ですか？'} postData={(e) => {setData("question", e.target.value); window.localStorage.setItem('addList', false)}}/>
                 
                 <Grid container>
                     <Grid item xs={4}>
