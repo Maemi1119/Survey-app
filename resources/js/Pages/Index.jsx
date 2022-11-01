@@ -49,7 +49,7 @@ export default function Index(props){
             <Grid container className="mt-6">
                 <Grid xs={2} item className="pl-10">
                     <Stack spacing={2}>
-                        {props.auth?.user == null ? (
+                        {props.auth.user ? (
                             <>
                                 <Link href="#">アカウント情報</Link>
                                 <Link href="#">アカウント管理</Link>
