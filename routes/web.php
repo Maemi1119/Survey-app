@@ -45,6 +45,12 @@ Route::group(['middleware' => ['auth']], function(){
     {/*アンケート一覧画面*/}
     Route::get('/list', [QuestionaireController::class,'lists']);
     Route::get('/list/{questionaire}', [QuestionaireController::class,'result']);
+    Route::get('/beforelook/{questionaire}', [QuestionaireController::class,'beforeLook']);
+    Route::post('/checklook/{questionaire}', [QuestionaireController::class,'checkLook']);
+    Route::get('/listok/{questionaire}', [QuestionaireController::class,'resultOK']);
+    
+    {/*アンケートの削除*/}
+    Route::delete('/delete/{questionaire}', [QuestionaireController::class,'delete']);
     
     {/*アンケート共有画面*/}
     Route::get('/share/{questionaire}', [QuestionaireController::class,'share']);
@@ -53,6 +59,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 
 {/*アンケート回答画面*/}
+Route::get('/show', [QuestionaireController::class,'showSurvey']);
 Route::get('/answer/{questionaire}', [AnswerController::class,'beforeAnswer']);
 Route::post('/checkpass/{questionaire}', [AnswerController::class,'checkPass']);
 Route::get('/startanswer/{questionaire}', [AnswerController::class,'answer']);

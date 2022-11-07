@@ -67,7 +67,6 @@ class AnswerController extends Controller
     public function postAnswer(Request $request, Questionaire $questionaire, Question $question, Answer $answer){
         session()->forget('check');
         $user = Auth::id();
-        dd($request['image']);
         foreach($request['answers'] as $answer){
             Answer::create([
                 'answer'=>$answer['answer'],
@@ -75,7 +74,7 @@ class AnswerController extends Controller
                 'user_id'=>$user
             ]);
         } 
-        dd($request['image']);
+        {/*
         foreach($request['image'] as $image){
             $image_url = Cloudinary::upload($image->file('images')->getRealPath())->getSecurePath();
             Image::create([
@@ -84,6 +83,7 @@ class AnswerController extends Controller
                 'user_id'=>$user
             ]);
         }
+        */}
     }
     
 }

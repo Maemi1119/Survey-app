@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('overview')->nullable()->default(NULL);
-            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->boolean('show_question_count');
             $table->boolean('is_logined');
             $table->foreignId('user_id')->constrained('users');

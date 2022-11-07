@@ -20,7 +20,7 @@ export default function Register() {
         email: '',
         phone: '',
         sex: '',
-        birthday: dayjs('2014-08-18T21:11:54'),
+        birthday: '',
         job: '',
         password: '',
         password_confirmation: '',
@@ -40,13 +40,14 @@ export default function Register() {
         setData('sex', type);
     };
     
-    const handleBirth = (e) => {
-        setData('birthday', e.target.value);
+    const [value, setValue] = React.useState(dayjs('2022-04-07'));
+    const handleBirth = () => {
+        setData('birthday', value);
     };
 
     const submit = (e) => {
         e.preventDefault();
-
+        handleBirth;
         post(route('register'));
     };
 
@@ -136,11 +137,13 @@ export default function Register() {
                     <InputLabel forInput="birthday" value="生年月日" />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DesktopDatePicker
+                          renderInput={(params) => <TextField {...params} />}
                           label="Date desktop"
                           inputFormat="YYYY/MM/DD"
-                          value={data.birthday}
-                          onChange={handleBirth}
-                          renderInput={(params) => <TextField {...params} />}
+                          value={value}
+                          onChange={(newValue) => {
+                            setValue(newValue);
+                          }}
                         />
                     </LocalizationProvider>
                 </div>
@@ -163,7 +166,9 @@ export default function Register() {
 
                 <div className="mt-6">
                     <InputLabel forInput="password" value="Password" />
-
+                    
+                    <p>パスワードは8文字以上にしてください。</p>
+                    
                     <TextInput
                         type="password"
                         name="password"

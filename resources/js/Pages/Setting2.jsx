@@ -1,7 +1,6 @@
 import React, { useState,useCallback } from 'react';
 import { useForm } from '@inertiajs/inertia-react';
 import Button from '@mui/material/Button';
-// import '../../css/setting.css';
 import Questions from '@/Components/Question/Questions';
 import Category from '@/Components/Questionaire/Category';
 import Radio2G from '@/Components/Questionaire/Radio2G';

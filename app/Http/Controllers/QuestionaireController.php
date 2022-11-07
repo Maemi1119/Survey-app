@@ -19,12 +19,18 @@ use Illuminate\Support\Facades\Auth;
 class QuestionaireController extends Controller
 {
     //
-    public function lists(Questionaire $questionaire,Category $category,User $user, Answer $answer){
+    public function lists(Questionaire $questionaire, Question $question, Category $category, User $user){
         $user = Auth::id();
         return Inertia::render('List',[
             'questionaires' =>$questionaire->where('user_id', $user)->get(),
             //'categories' => $category->get()
-            //'answers' =>  $answer->where()
+            ]);
+    }
+    
+    public function showSurvey(Questionaire $questionaire,Category $category,User $user, Answer $answer){
+        return Inertia::render('ShowSurvey',[
+            'questionaires' =>$questionaire->with('user')->get(),
+            //'categories' => $category->get()
             ]);
     }
     
@@ -77,6 +83,11 @@ class QuestionaireController extends Controller
         return redirect('/preview/' . $questionaire->id);
     }
     
+    public function delete(Questionaire $questionaire){
+        $questionaire->delete();
+        return redirect('/');
+    }
+    
     public function preview(Questionaire $questionaire, Question $question, Method $method, Choice $choice){
         return Inertia::render('Preview',[
             'questionaires' => $questionaire,
@@ -86,15 +97,46 @@ class QuestionaireController extends Controller
             ]);
     }
     
-    public function result(Questionaire $questionaire, Question $question, Category $category, User $user, Answer $answer){
-        return Inertia::render('Result',[
+    public function result(Questionaire $questionaire, Password $password){
+        $pass = $password->where('questionaire_id', $questionaire->id)->get();
+        $passId = [];
+        foreach($pass as $ps){
+            array_push($passId, $ps->setting_id);
+        }
+        if(in_array(6, $passId)){
+            return redirect('/beforelook/' . $questionaire->id);
+        }
+        session(['look'=> true]);
+        return redirect('/listok/' . $questionaire->id);
+    }
+    
+    public function resultOK(Questionaire $questionaire, Question $question, Category $category, Password $password, User $user, Answer $answer){
+        if(session('look')==true){
+            return Inertia::render('Result',[
                 'questionaires' => $questionaire->where('id', $questionaire->id)->first(),
                 'questions' => $question->with('answers')->where('questionaire_id', $questionaire->id)->get(),
                 'categories' => $category->get(),
                 'users' => $user->get(),
                 'answers' => $answer->where('question_id', $questionaire->id)->get()
             ]);
+            session(['look'=> false]);
+        }else{
+            return redirect('/beforelook/' . $questionaire->id);
+        }
     }
+    
+    public function beforeLook(Questionaire $questionaire){
+        return Inertia::render('BeforeList',['questionaires' => $questionaire->where('id', $questionaire->id)->first()]);
+    }
+    
+    public function checkLook(Request $request, Password $password, Questionaire $questionaire){
+        $pass = $password->where('questionaire_id', $questionaire->id)->where('setting_id', 6)->first();
+            if($pass->password == $request['password']){
+                session(['check' => true]);
+                return redirect('/listok/'. $questionaire->id);
+            }
+                return redirect()->back()->withErrors(['missing' => 'パスワードが間違っています']);
+            }
     
     public function share(Questionaire $questionaire){
         return Inertia::render('Share',['questionaires' => $questionaire->where('id', $questionaire->id)->first()]);
